@@ -157,7 +157,7 @@ use({
     require('user/plugins/nvim-tree')
   end,
 })
-
+vim.g.skip_ts_context_commentstring_module = true
 -- A Status line.
 use({
   'nvim-lualine/lualine.nvim',
@@ -239,15 +239,54 @@ use({
   config = function()
     vim.g.floaterm_width = 0.8
     vim.g.floaterm_height = 0.8
+    vim.g.floaterm_borderchars = '        '
     vim.keymap.set('n', '<F1>', ':FloatermToggle<CR>')
     vim.keymap.set('t', '<F1>', '<C-\\><C-n>:FloatermToggle<CR>')
-    vim.cmd([[
-      highlight link Floaterm CursorLine
-      highlight link FloatermBorder CursorLineBg
-    ]])
   end
 })
+-- Improved syntax highlighting
+use({
+  'nvim-treesitter/nvim-treesitter',
+  run = function()
+    require('nvim-treesitter.install').update({ with_sync = true })
+  end,
+  requires = {
+    'JoosepAlviste/nvim-ts-context-commentstring' ,
+    'nvim-treesitter/nvim-treesitter-textobjects',
+  },
+  config = function()
+    require('user/plugins/treesitter')
+  end,
+})
+-- Language Server Protocol.
+use({
+  'neovim/nvim-lspconfig',
+  requires = {
+    {'williamboman/mason.nvim', build = ":MasonUpdate"},
+  'williamboman/mason-lspconfig.nvim',
+   'b0o/schemastore.nvim',
+  },
+  config = function()
+    require('user/plugins/lspconfig')
+  end,
+})
 
+-- Completion
+use({
+  'hrsh7th/nvim-cmp',
+  requires = {
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
+    'onsails/lspkind-nvim',
+  },
+  config = function()
+    require('user/plugins/cmp')
+  end,
+})
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then

@@ -33,7 +33,8 @@ vim.opt.sidescrolloff = 5
 
 vim.opt.clipboard = 'unnamedplus' -- Use system clipboard
 
-vim.opt.signcolumn = 'yes:1'
+vim.opt.completeopt = 'menuone,longest,preview'
+vim.opt.signcolumn = 'yes:2'
 
 vim.opt.confirm = true -- ask for confirmation instead of erroring
 
