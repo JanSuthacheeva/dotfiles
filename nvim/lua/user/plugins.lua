@@ -265,6 +265,8 @@ use({
     {'williamboman/mason.nvim', build = ":MasonUpdate"},
   'williamboman/mason-lspconfig.nvim',
    'b0o/schemastore.nvim',
+   'jose-elias-alvarez/null-ls.nvim',
+    'jayp0521/mason-null-ls.nvim',
   },
   config = function()
     require('user/plugins/lspconfig')
@@ -287,6 +289,34 @@ use({
     require('user/plugins/cmp')
   end,
 })
+
+-- PHP Refactoring Tools
+use({
+  'phpactor/phpactor',
+  ft = 'php',
+  run = 'composer install --no-dev --optimize-autoloader',
+  config = function()
+    vim.keymap.set('n', '<Leader>pm', ':PhpactorContextMenu<CR>')
+    vim.keymap.set('n', '<Leader>pn', ':PhpactorClassNew<CR>')
+  end,
+})
+
+-- Project Configuration.
+use({
+  'tpope/vim-projectionist',
+  requires = 'tpope/vim-dispatch',
+  config = function()
+    require('user/plugins/projectionist')
+  end,
+})
+-- Testing helper
+use({
+  'vim-test/vim-test',
+  config = function()
+    require('user/plugins/vim-test')
+  end,
+})
+
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
 if packer_bootstrap then
