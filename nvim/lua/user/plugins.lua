@@ -27,7 +27,7 @@ vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#000000' })
 use({'catppuccin/nvim', 
   as = "catppuccin",
   config = function()
-    vim.cmd('colorscheme catppuccin-latte')
+    vim.cmd('colorscheme catppuccin-frappe')
     require("catppuccin").setup({
       integrations = {
         nvimtree = true
@@ -133,7 +133,20 @@ use({
 })
 
 -- Markdown preview
-use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+-- install without yarn or npm
+use({
+  "iamcco/markdown-preview.nvim",
+  run = function()
+    vim.fn["mkdp#util#install"]()
+  end,
+  setup = function()
+    local g = vim.g
+    g.mkdp_page_title = "${name}.md"
+    g.mkdp_theme = 'light'
+  end,
+  ft = "markdown",
+})
+
 
 -- Telescope
 use({
@@ -201,7 +214,12 @@ use({
 use({
   'lukas-reineke/indent-blankline.nvim',
   config = function()
-    require("ibl").setup()
+    require("ibl").setup({
+      exclude = {
+       filetypes = {
+        'dashboard',
+      }
+    ,}})
   end,
 })
 
@@ -212,7 +230,14 @@ use({
     require('user/plugins/dashboard-nvim')
   end
 })
-
+-- use {
+--   'nvimdev/dashboard-nvim',
+--   event = 'VimEnter',
+--   config = function()
+--     require('user/plugins/dashboard-nvim')
+--   end,
+--   requires = {'nvim-tree/nvim-web-devicons'}
+-- }
 -- Git integration.
 use({
   'lewis6991/gitsigns.nvim',
@@ -315,6 +340,12 @@ use({
   config = function()
     require('user/plugins/vim-test')
   end,
+})
+
+use ({
+  'prettier/vim-prettier',
+  run = 'yarn install --frozen-lockfile --production',
+  ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'}
 })
 
 -- Automatically set up your configuration after cloning packer.nvim
