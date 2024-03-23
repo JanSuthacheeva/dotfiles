@@ -28,6 +28,19 @@ require('lspconfig').jsonls.setup({
   },
 })
 
+-- Stimulus for Blade and PHP
+require('lspconfig').stimulus_ls.setup({
+capabilities = capabilities,
+filetypes = { "html", "ruby", "eruby", "blade", "php" },
+})
+
+-- HTML
+require('lspconfig').html.setup({
+  capabilities = capabilities,
+  })
+-- React and and TypeScript React
+require('lspconfig').denols.setup({})
+
 -- null-ls
 require('null-ls').setup({
   sources = {
