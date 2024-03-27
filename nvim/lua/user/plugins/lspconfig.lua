@@ -38,9 +38,9 @@ filetypes = { "html", "ruby", "eruby", "blade", "php" },
 require('lspconfig').html.setup({
   capabilities = capabilities,
   })
--- React and and TypeScript React
-require('lspconfig').denols.setup({})
 
+-- TypeScript
+require('lspconfig').tsserver.setup({})
 -- null-ls
 require('null-ls').setup({
   sources = {
