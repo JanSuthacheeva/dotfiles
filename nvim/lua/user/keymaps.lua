@@ -27,11 +27,8 @@ vim.keymap.set('i', ',,', '<Esc>A;')
 -- Quickly clear search highlighting.
 vim.keymap.set('n', '<Leader>k', ':nohlsearch<CR>')
 
--- Open the current file in the default program 
-vim.keymap.set('n', '<Leader>x', ':!open %<CR><CR>')
-
 -- Delete Buffer
-vim.keymap.set('n', '<Leader>d', ':bdelete<CR>')
+vim.keymap.set('n', '<Leader>x', ':bdelete<CR>')
 
 -- Move lines up and down.
 vim.keymap.set('i', '<A-k>', '<Esc>:move *-2<CR>==gi')
