@@ -143,6 +143,7 @@ use({
     local g = vim.g
     g.mkdp_page_title = "${name}.md"
     g.mkdp_theme = 'light'
+    g.mkdp_auto_close = 0
   end,
   ft = "markdown",
 })
@@ -265,8 +266,8 @@ use({
     vim.g.floaterm_width = 0.8
     vim.g.floaterm_height = 0.8
     vim.g.floaterm_borderchars = '        '
-    vim.keymap.set('n', '<F1>', ':FloatermToggle<CR>')
-    vim.keymap.set('t', '<F1>', '<C-\\><C-n>:FloatermToggle<CR>')
+    vim.keymap.set('n', '<Leader>tt', ':FloatermToggle<CR>')
+    vim.keymap.set('t', '<Leader>tt', '<C-\\><C-n>:FloatermToggle<CR>')
   end
 })
 -- Improved syntax highlighting
@@ -347,6 +348,8 @@ use ({
   run = 'yarn install --frozen-lockfile --production',
   ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'}
 })
+
+use('github/copilot.vim')
 
 -- Automatically set up your configuration after cloning packer.nvim
 -- Put this at the end after all plugins
