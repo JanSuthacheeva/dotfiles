@@ -28,6 +28,20 @@ require('lspconfig').jsonls.setup({
   },
 })
 
+-- Gopls for Golang
+require('lspconfig').gopls.setup({
+  capabilities = capabilities,
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  settings = {
+    gopls = {
+      completeUnimported = true,
+      analyses = {
+        unusedparams = true,
+      },
+    },
+  },
+})
+
 -- Stimulus for Blade and PHP
 require('lspconfig').stimulus_ls.setup({
 capabilities = capabilities,
@@ -42,8 +56,27 @@ require('lspconfig').html.setup({
 -- TypeScript
 require('lspconfig').tsserver.setup({})
 -- null-ls
+local augroupt = vim.api.nvim_create_augroup("LspFormatting", {})
 require('null-ls').setup({
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({
+        group = augroup,
+        buffer = bufnr,
+      })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
+  end,
   sources = {
+    require('null-ls').builtins.formatting.gofumpt,
+    require('null-ls').builtins.formatting.goimports_reviser,
+    require('null-ls').builtins.formatting.golines,
     require('null-ls').builtins.diagnostics.eslint_d.with({
       condition = function(utils)
         return utils.root_has_file({ '.eslintrc.js' })
