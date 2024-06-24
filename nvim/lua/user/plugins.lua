@@ -24,7 +24,7 @@ require('packer').init({
 local use = require('packer').use
 vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#000000' })
 -- Theme
-use({'catppuccin/nvim', 
+use({'catppuccin/nvim',
   as = "catppuccin",
   config = function()
     vim.cmd('colorscheme catppuccin-frappe')
@@ -360,6 +360,15 @@ use ({
   'prettier/vim-prettier',
   run = 'yarn install --frozen-lockfile --production',
   ft = {'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'}
+})
+
+use({
+    'MeanderingProgrammer/markdown.nvim',
+    as = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
+    after = { 'nvim-treesitter' },
+    config = function()
+        require('render-markdown').setup({})
+    end,
 })
 
 use('github/copilot.vim')
