@@ -3,6 +3,9 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
+vim.g.skip_ts_context_commentstring_module = true
+vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#000000' })
+
 vim.opt.smartindent = true
 
 vim.opt.wrap = false
