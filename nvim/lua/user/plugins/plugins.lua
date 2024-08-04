@@ -75,10 +75,9 @@ return {
   -- Automatically create parent dirs when saving.
   ('jessarcher/vim-heritage'),
   -- Text objects for HTML attributes.
- -- ({
- --   'whatyouhide/vim-textobj-xmlattr',
- --   dependencies = 'kana/vim-textobj-r',
- -- }),
+  ('whatyouhide/vim-textobj-xmlattr'),
+  -- Buffer Deletion Handling
+  ('ojroques/nvim-bufdel'),
   -- Automatically set the working directory to the project root.
 ({
     'airblade/vim-rooter',

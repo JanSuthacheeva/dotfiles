@@ -16,15 +16,12 @@ snippet prif "private method"
 		${0}
 	}
 
-snippet testt "test method (prefix)"
-	public function test_${1}()
-	{
-		${0}
-	}
+snippet desc "describe(...)"
+	describe(${1}, function () {
 
-snippet testa "test method (annotation)"
-	/** @test */
-	public function ${1}()
-	{
-		${0}
-	}
+  }); 
+
+snippet testit "it()"
+  it(${1}, function () {
+
+  });

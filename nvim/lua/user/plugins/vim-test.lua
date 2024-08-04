@@ -12,13 +12,16 @@ return {
   dependencies = { 'voldikss/vim-floaterm' },
   config = function()
     vim.cmd([[
-      let test#php#phpunit#options = '--colors=always'
-      let test#php#pest#options = '--colors=always'
+      let test#php#phpunit#executable = 'sail artisan test'
+      " let test#php#phpunit#options = '--colors=always'
+      let test#php#pest#executable = 'sail artisan test'
+      " let test#php#pest#options = '--colors=always'
 
       function! FloatermStrategy(cmd)
         execute 'silent FloatermSend q'
         execute 'silent FloatermKill'
-        execute 'FloatermNew! '.a:cmd.' |less -X'
+        execute 'FloatermNew! '.a:cmd
+        " execute 'FloatermNew! '.a:cmd.' |less -X'
       endfunction
 
       let g:test#custom_strategies = {'floaterm': function('FloatermStrategy')}

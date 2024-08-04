@@ -6,7 +6,7 @@ vim.keymap.set('n', '<Leader>n', ':NvimTreeFindFileToggle<CR>')
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 
-vim.keymap.set('n', '<Leader>x', ':bdelete<CR>')
+vim.keymap.set('n', '<Leader>x', ':BufDel<CR>')
 -- Reselect visual selection after indenting.
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
@@ -34,9 +34,6 @@ vim.keymap.set('i', ',,', '<Esc>A;')
 
 -- Quickly clear search highlighting.
 vim.keymap.set('n', '<Leader>k', ':nohlsearch<CR>')
-
--- Delete Buffer
-vim.keymap.set('n', '<Leader>x', ':bdelete<CR>')
 
 -- Move lines up and down.
 vim.keymap.set('i', '<A-k>', '<Esc>:move *-2<CR>==gi')
