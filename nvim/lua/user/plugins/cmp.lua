@@ -60,7 +60,7 @@ local source_map = {
           -- See: https://www.reddit.com/r/neovim/comments/103zetf/how_can_i_get_a_vscodelike_tailwind_css/
           before = function(entry, vim_item)
             -- Replace the 'menu' field with the kind and source
-            vim_item.menu = '  ' .. vim_item.kind .. ' (' .. (source_map[entry.source.name] or entry.source.name) .. ')'
+            -- vim_item.menu = '  ' .. vim_item.kind .. ' (' .. (source_map[entry.source.name] or entry.source.name) .. ')'
             vim_item.menu_hl_group = 'SpecialComment'
 
             vim_item.abbr = ltrim(vim_item.abbr)

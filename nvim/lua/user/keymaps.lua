@@ -1,6 +1,15 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Search for reference
+vim.keymap.set("n", "grr", function()
+		require("fzf-lua").lsp_references({
+			jump_to_single_result = true,
+			ignore_current_line = true,
+			ignoreDecleration = true,
+		})
+	end, {})
+
 vim.keymap.set('n', '<Leader>n', ':NvimTreeFindFileToggle<CR>')
 -- When text is wrapped, move by terminal rows, not lines, unless a count is provided.
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
