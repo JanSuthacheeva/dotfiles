@@ -7,6 +7,8 @@ vim.g.skip_ts_context_commentstring_module = true
 vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#000000' })
 vim.api.nvim_set_hl(0, 'Comment', { italic=true })
 vim.opt.smartindent = true
+-- Set custom colors for the currently opened buffer
+vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { fg = "#FFA500", bold = true })
 
 vim.opt.wrap = false
 
