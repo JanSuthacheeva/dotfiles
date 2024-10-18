@@ -102,7 +102,6 @@ return {
 
     -- -- Tailwind CSS
     -- require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
-
     -- JSON
     require('lspconfig').jsonls.setup({
       capabilities = capabilities,
@@ -112,6 +111,9 @@ return {
         },
       },
     })
+
+    -- HTMX
+    require('lspconfig').htmx.setup{}
 
     -- Lua
     require('lspconfig').lua_ls.setup({
