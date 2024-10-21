@@ -12,9 +12,9 @@ return {
   dependencies = { 'voldikss/vim-floaterm' },
   config = function()
     vim.cmd([[
-      let test#php#phpunit#executable = 'sail artisan test'
+      let test#php#phpunit#executable = 'php artisan test'
       " let test#php#phpunit#options = '--colors=always'
-      let test#php#pest#executable = 'sail artisan test'
+      let test#php#pest#executable = 'php artisan test'
       " let test#php#pest#options = '--colors=always'
 
       function! FloatermStrategy(cmd)
