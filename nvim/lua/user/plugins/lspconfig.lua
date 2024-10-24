@@ -78,6 +78,8 @@ return {
       end,
       capabilities = capabilities,
     })
+    -- Python
+    require'lspconfig'.pyright.setup{}
 
     -- require('lspconfig').tsserver.setup({
     --   init_options = {

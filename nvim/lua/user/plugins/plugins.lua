@@ -204,7 +204,6 @@ return {
    end
   }),
 --  -- Go Debugging
- ('mfussenegger/nvim-dap'),
  ({
    'leoluz/nvim-dap-go',
    ft = "go",
@@ -231,5 +230,5 @@ return {
        require('render-markdown').setup({})
    end,
   }),
- ('github/copilot.vim'),
+ -- ('github/copilot.vim'),
 }

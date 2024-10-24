@@ -7,6 +7,7 @@ return {
     'nvim-tree/nvim-web-devicons',
     'nvim-telescope/telescope-live-grep-args.nvim',
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    'nvim-telescope/telescope-dap.nvim',
   },
   keys = {
     { '<leader>f', function() require('telescope.builtin').find_files() end },
@@ -75,7 +76,7 @@ return {
         },
       },
     })
-
     require('telescope').load_extension('fzf')
+    require('telescope').load_extension('dap')
   end,
 }
