@@ -46,3 +46,29 @@ vim.opt.confirm = true -- ask for confirmation instead of erroring
 vim.opt.undofile = true -- persistent undo
 vim.opt.backup = true -- automatically save a backup file
 vim.opt.backupdir:remove('.') -- keep backup out of the current directory
+
+local function replace_journal_placeholders()
+  local date = os.date("%d.%B %Y")
+  local day = os.date("%A")
+  local timestamp = Get_iso8601_timestamp()
+  vim.api.nvim_command('%s/{{DATE_PLACEHOLDER}}/' .. date .. '/g')
+  vim.api.nvim_command('%s/{{DAY_PLACEHOLDER}}/' .. day .. '/g')
+  vim.api.nvim_command('%s/{{TIMESTAMP_PLACEHOLDER}}/' .. timestamp .. '/g')
+end
+
+function Get_iso8601_timestamp()
+  local date_time = os.date("%Y-%m-%dT%H:%M:%S") -- Local time
+  local local_offset_sec = os.difftime(os.time(), os.time(os.date("!*t")))
+  local offset_hours = math.floor(local_offset_sec / 3600)
+  local offset_minutes = math.abs(local_offset_sec % 3600 / 60)
+  local offset_sign = offset_hours >= 0 and "+" or "-"
+  local offset_formatted = string.format("%s%02d%02d", offset_sign, math.abs(offset_hours), offset_minutes)
+  return date_time .. offset_formatted
+end
+
+vim.api.nvim_create_user_command("JournalReplace", replace_journal_placeholders, {})
+
+vim.api.nvim_create_user_command("JournalToday", function()
+    vim.cmd("Neorg journal today")
+    vim.cmd("JournalReplace")
+end, {})
