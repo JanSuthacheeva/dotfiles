@@ -11,6 +11,7 @@ return (
           ["core.concealer"] = {
             config = {
               icon_preset = "basic",
+              folds = false,
               icons = {
                 code_block = {
                   conceal = true,
@@ -18,6 +19,8 @@ return (
               }
             }
           },
+          ["core.ui"] = {},
+          ["core.ui.calendar"] = {},
           ["core.dirman"] = {
             config = {
               workspaces = {
@@ -32,6 +35,11 @@ return (
               neorg_leader = "<Leader>o"
             }
           },
+          ["core.presenter"] = {
+            config = {
+              zen_mode = "zen-mode"
+            }
+          }
         }
       })
     end
