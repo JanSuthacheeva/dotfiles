@@ -14,6 +14,17 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  callback = function()
+    vim.opt.expandtab = false
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
+    vim.opt_local.softtabstop = 4
+    vim.opt_local.textwidth = 79
+  end,
+})
+
 vim.g.skip_ts_context_commentstring_module = true
 vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#000000' })
 vim.api.nvim_set_hl(0, 'Comment', { italic=true })

@@ -19,7 +19,6 @@ return (
               }
             }
           },
-          ["core.ui"] = {},
           ["core.ui.calendar"] = {},
           ["core.dirman"] = {
             config = {
