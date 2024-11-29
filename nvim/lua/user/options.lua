@@ -3,6 +3,8 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
+
+
 -- Override settings for Python files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",
@@ -24,6 +26,10 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.textwidth = 79
   end,
 })
+
+
+vim.g.python3_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
+vim.g.python_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 
 vim.g.skip_ts_context_commentstring_module = true
 vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#000000' })
@@ -94,3 +100,5 @@ vim.api.nvim_create_user_command("JournalToday", function()
     vim.cmd("Neorg journal today")
     vim.cmd("JournalReplace")
 end, {})
+
+

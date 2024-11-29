@@ -107,11 +107,9 @@ return {
 --  -- Markdown preview
 --  -- install without yarn or npm
  ({
-   "iamcco/markdown-preview.nvim",
-   build= function()
-     vim.fn["mkdp#util#install"]()
-   end,
-   init = function()
+  "iamcco/markdown-preview.nvim",
+  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+  init = function()
      local g = vim.g
      g.mkdp_page_title = "${name}.md"
      g.mkdp_theme = 'light'
