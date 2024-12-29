@@ -1,0 +1,29 @@
+font-family = "FiraCode Nerd Font Mono"
+font-size = 13
+theme = "tokyonight-day"
+font-thicken = true
+adjust-cell-height = 50%
+
+# Style
+window-padding-x = 4
+window-padding-y = 2
+macos-titlebar-proxy-icon      = hidden
+macos-titlebar-style           = tabs
+mouse-hide-while-typing        = true
+
+# QOL
+clipboard-paste-protection     = true
+clipboard-trim-trailing-spaces = true
+copy-on-select                 = true
+macos-auto-secure-input        = true
+macos-secure-input-indication  = true
+quit-after-last-window-closed  = false
+
+
+# Key binds
+keybind = shift+ctrl+n=next_tab
+keybind = shift+ctrl+c=new_tab
+keybind = shift+ctrl+p=previous_tab
+keybind = shift+ctrl+x=close_surface
+keybind = shift+ctrl+t=toggle_window_decorations
+
