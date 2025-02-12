@@ -64,6 +64,7 @@ return {
       },
     },
     window = {
+      position = "right",
       mappings = {
         ["<cr>"] = "open_with_window_picker",
       },
