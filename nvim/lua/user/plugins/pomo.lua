@@ -1,13 +1,22 @@
 return {
-  "epwalsh/pomo.nvim",
-  version = "*",  -- Recommended, use latest release instead of latest commit
-  lazy = true,
-  cmd = { "TimerStart", "TimerRepeat", "TimerSession" },
-  dependencies = {
-    -- Optional, but highly recommended if you want to use the "Default" timer
+  {
     "rcarriga/nvim-notify",
+    config = function()
+     require("notify").setup({
+        top_down = false, -- Set to false for bottom-right notifications
+      })
+      vim.notify = require("notify") -- Ensure notify is used globally
+    end,
+    opts = {
+    }
   },
-  opts = {
-    -- See below for full list of options 👇
-  },
+  {
+    "epwalsh/pomo.nvim",
+    version = "*",
+    lazy = true,
+    cmd = { "TimerStart", "TimerRepeat", "TimerSession" },
+    dependencies = { "rcarriga/nvim-notify" },
+    opts = {
+    },
+  }
 }
