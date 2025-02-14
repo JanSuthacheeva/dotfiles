@@ -33,6 +33,10 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#7AA2F8' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg='white', bold=true })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#FD9D63'})
+
 local dap = require('dap')
 
 dap.adapters.php = {

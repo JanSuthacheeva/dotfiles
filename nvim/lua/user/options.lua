@@ -101,4 +101,3 @@ vim.api.nvim_create_user_command("JournalToday", function()
     vim.cmd("JournalReplace")
 end, {})
 
-
