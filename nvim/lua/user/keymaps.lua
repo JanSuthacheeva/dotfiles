@@ -74,3 +74,5 @@ vim.keymap.set('n', '<Leader>qs', function()
   local widgets = require('dap.ui.widgets')
   widgets.centered_float(widgets.scopes)
 end)
+
+vim.keymap.set('n', '<Leader>cc', ':CodeCompanionChat<CR>')

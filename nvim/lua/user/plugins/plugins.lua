@@ -190,5 +190,6 @@ return {
        require('render-markdown').setup({})
    end,
   }),
- -- ('github/copilot.vim'),
+
+ ('github/copilot.vim'),
 }
