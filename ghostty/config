@@ -10,6 +10,7 @@ window-padding-y = 2
 macos-titlebar-proxy-icon      = hidden
 macos-titlebar-style           = tabs
 mouse-hide-while-typing        = true
+title                          = " "
 
 # QOL
 clipboard-paste-protection     = true
@@ -26,4 +27,5 @@ keybind = shift+ctrl+c=new_tab
 keybind = shift+ctrl+p=previous_tab
 keybind = shift+ctrl+x=close_surface
 keybind = shift+ctrl+t=toggle_window_decorations
+keybind = shift+ctrl+r=reload_config
 
