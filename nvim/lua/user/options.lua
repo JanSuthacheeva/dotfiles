@@ -31,6 +31,8 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.g.python3_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 vim.g.python_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 
+vim.g.zenbones_compat = 1
+
 vim.g.skip_ts_context_commentstring_module = true
 vim.api.nvim_set_hl(0, 'IndentBlanklineChar', { fg = '#000000' })
 vim.api.nvim_set_hl(0, 'Comment', { italic=true })
