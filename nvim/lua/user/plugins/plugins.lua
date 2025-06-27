@@ -169,7 +169,14 @@ return {
    end,
   }),
 
- (
-    'github/copilot.vim'
-  ),
+ ({
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  event = "InsertEnter",
+  config = function()
+    require("copilot").setup({
+        copilot_model = "gpt-4.1",
+      })
+  end,
+  })
 }
