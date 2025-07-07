@@ -1,6 +1,6 @@
 font-family = "FiraCode Nerd Font Mono"
 font-size = 13
-theme = "tokyonight-storm"
+theme = Adventure
 font-thicken = true
 adjust-cell-height = 50%
 
@@ -11,7 +11,6 @@ macos-titlebar-proxy-icon      = hidden
 macos-titlebar-style           = tabs
 mouse-hide-while-typing        = true
 title                          = " "
-background-opacity = 0.8
 
 # QOL
 clipboard-paste-protection     = true

@@ -9,8 +9,6 @@ return {
       require("fzf-lua").setup({})
     end
   }),
-  -- Packer can manage itself.
-  ('wbthomason/packer.nvim'),
   -- Commenting support.
   ('tpope/vim-commentary'),
   -- Add, change, and delete surrounding text.
@@ -75,33 +73,20 @@ return {
      vim.g.splitjoin_php_method_chain_full = 1
    end,
  }),
---  -- Automatically fix indentation when pasting code.
- ({
-   'sickill/vim-pasta',
-   config = function()
-     vim.g.pasta_disabled_filetypes = { 'fugitive' }
-   end,
- }),
---  -- Markdown preview
---  -- install without yarn or npm
- ({
-  "iamcco/markdown-preview.nvim",
-  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-  init = function()
-     local g = vim.g
-     g.mkdp_page_title = "${name}.md"
-     g.mkdp_theme = 'light'
-     g.mkdp_auto_close = 0
-   end,
-   ft = "markdown",
-  }),
- ({
-   'nvim-lualine/lualine.nvim',
-   dependencies = 'kyazdani42/nvim-web-devicons',
-   config = function()
-     require('lualine').setup({})
-   end,
-  }),
+-- --  -- Automatically fix indentation when pasting code.
+--  ({
+--    'sickill/vim-pasta',
+--    config = function()
+--      vim.g.pasta_disabled_filetypes = { 'fugitive' }
+--    end,
+--  }),
+ -- ({
+ --   'nvim-lualine/lualine.nvim',
+ --   dependencies = 'kyazdani42/nvim-web-devicons',
+ --   config = function()
+ --     require('lualine').setup({})
+ --   end,
+ --  }),
  ({
    'lukas-reineke/indent-blankline.nvim',
    config = function()
@@ -113,23 +98,23 @@ return {
      ,}})
    end,
   }),
- ({
-   'lewis6991/gitsigns.nvim',
-   config = function()
-     require('gitsigns').setup({})
-     vim.keymap.set('n', ']h', ':Gitsigns next_hunk<CR>')
-     vim.keymap.set('n', '[h', ':Gitsigns prev_hunk<CR>')
-     vim.keymap.set('n', 'gs', ':Gitsigns stage_hunk<CR>')
-     vim.keymap.set('n', 'gS', ':Gitsigns undo_stage_hunk<CR>')
-     vim.keymap.set('n', 'gp', ':Gitsigns preview_hunk<CR>')
-     vim.keymap.set('n', 'gb', ':Gitsigns blame_line<CR>')
-   end,
-  }),
---  -- Git commands.
- ({
-   'tpope/vim-fugitive',
-   dependencies = 'tpope/vim-rhubarb',
-  }),
+ -- ({
+ --   'lewis6991/gitsigns.nvim',
+ --   config = function()
+ --     require('gitsigns').setup({})
+ --     vim.keymap.set('n', ']h', ':Gitsigns next_hunk<CR>')
+ --     vim.keymap.set('n', '[h', ':Gitsigns prev_hunk<CR>')
+ --     vim.keymap.set('n', 'gs', ':Gitsigns stage_hunk<CR>')
+ --     vim.keymap.set('n', 'gS', ':Gitsigns undo_stage_hunk<CR>')
+ --     vim.keymap.set('n', 'gp', ':Gitsigns preview_hunk<CR>')
+ --     vim.keymap.set('n', 'gb', ':Gitsigns blame_line<CR>')
+ --   end,
+ --  }),
+-- --  -- Git commands.
+ -- ({
+ --   'tpope/vim-fugitive',
+ --   dependencies = 'tpope/vim-rhubarb',
+ --  }),
 --  --- Floating terminal.
  ({
    'voldikss/vim-floaterm',
@@ -141,15 +126,15 @@ return {
      vim.keymap.set('t', '<Leader>tt', '<C-\\><C-n>:FloatermToggle<CR>')
    end
   }),
---  -- Go Debugging
- ({
-   'leoluz/nvim-dap-go',
-   ft = "go",
-   dependencies = "mfussenegger/nvim-dap",
-   config = function(_, opts)
-     require("dap-go").setup(opts)
-   end
-  }),
+-- --  -- Go Debugging
+--  ({
+--    'leoluz/nvim-dap-go',
+--    ft = "go",
+--    dependencies = "mfussenegger/nvim-dap",
+--    config = function(_, opts)
+--      require("dap-go").setup(opts)
+--    end
+--   }),
 --  -- PHP Refactoring Tools
  ({
    'phpactor/phpactor',
@@ -160,23 +145,4 @@ return {
      vim.keymap.set('n', '<Leader>pn', ':PhpactorClassNew<CR>')
    end,
  }),
- ({
-   'MeanderingProgrammer/markdown.nvim',
-   name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
-   'nvim-treesitter',
-   config = function()
-       require('render-markdown').setup({})
-   end,
-  }),
-
- ({
-  "zbirenbaum/copilot.lua",
-  cmd = "Copilot",
-  event = "InsertEnter",
-  config = function()
-    require("copilot").setup({
-        copilot_model = "gpt-4.1",
-      })
-  end,
-  })
 }

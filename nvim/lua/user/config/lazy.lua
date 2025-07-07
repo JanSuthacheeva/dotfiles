@@ -28,7 +28,7 @@ require("lazy").setup({
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = {"tokyonight-storm", "habamax" } },
+  install = { colorscheme = {"tokyonight-storm", "habamax", "256_noir" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
@@ -37,19 +37,19 @@ vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#7AA2F8' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='white', bold=true })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#FD9D63'})
 
-local dap = require('dap')
+-- local dap = require('dap')
 
-dap.adapters.php = {
-  type = "executable",
-  command = "node",
-  args = { os.getenv("HOME") .. "/projects/php/vscode-php-debug/out/phpDebug.js" }
-}
+-- dap.adapters.php = {
+--   type = "executable",
+--   command = "node",
+--   args = { os.getenv("HOME") .. "/projects/php/vscode-php-debug/out/phpDebug.js" }
+-- }
 
-dap.configurations.php = {
-  {
-      type = "php",
-      request = "launch",
-      name = "Listen for Xdebug",
-      port = 9003
-  }
-}
+-- dap.configurations.php = {
+--   {
+--       type = "php",
+--       request = "launch",
+--       name = "Listen for Xdebug",
+--       port = 9003
+--   }
+-- }

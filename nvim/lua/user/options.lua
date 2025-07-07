@@ -95,11 +95,3 @@ function Get_iso8601_timestamp()
   local offset_formatted = string.format("%s%02d%02d", offset_sign, math.abs(offset_hours), offset_minutes)
   return date_time .. offset_formatted
 end
-
-vim.api.nvim_create_user_command("JournalReplace", replace_journal_placeholders, {})
-
-vim.api.nvim_create_user_command("JournalToday", function()
-    vim.cmd("Neorg journal today")
-    vim.cmd("JournalReplace")
-end, {})
-
