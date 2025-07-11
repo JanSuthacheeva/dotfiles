@@ -4,7 +4,6 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt_local.conceallevel = 2
 
-
 -- Override settings for Python files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",

@@ -18,11 +18,22 @@ return {
   -- {
   --  'xiyaowong/transparent.nvim'
   -- }
+  -- {
+  --   'andreasvc/vim-256noir',
+  --   lazy = false,
+  --   config = function()
+  --     vim.cmd[[colorscheme 256_noir]]
+  --     end,
+  -- }
   {
-    'andreasvc/vim-256noir',
+    'alligator/accent.vim',
     lazy = false,
     config = function()
-      vim.cmd[[colorscheme 256_noir]]
+      vim.cmd[[
+      let g:accent_colour = 'green'
+      let g:accent_darken = 1
+      colorscheme accent
+      ]]
       end,
   }
   --   "folke/tokyonight.nvim",
