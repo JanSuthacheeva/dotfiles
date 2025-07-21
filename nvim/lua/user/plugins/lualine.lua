@@ -36,7 +36,21 @@ return {
         { 'diagnostics', sources = { 'nvim_diagnostic' } },
       },
       lualine_c = {
-        'filename'
+        {
+          'buffers',
+          show_filename_only = true,
+          show_modified_status = true,
+          mode = 0,
+          buffers_color = {
+            active = {
+                fg = '#000000',
+                bg = '#ffffff',
+                bold = true
+            },
+          },
+          separator = { left = '|', right = '|' },
+        }
+
       },
       lualine_x = {
         {
