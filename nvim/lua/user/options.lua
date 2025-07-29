@@ -76,6 +76,62 @@ vim.opt.undofile = true -- persistent undo
 vim.opt.backup = true -- automatically save a backup file
 vim.opt.backupdir:remove('.') -- keep backup out of the current directory
 
+
+
+local function colors(color)
+    if color == 'yellow' then
+      vim.cmd[[
+      let g:accent_colour = 'yellow'
+      colorscheme accent
+      ]]
+    elseif color == 'orange' then
+      vim.cmd[[
+      let g:accent_colour = 'orange'
+      colorscheme accent
+      ]]
+    elseif color == 'red' then
+      vim.cmd[[
+      let g:accent_colour = 'red'
+      colorscheme accent
+      ]]
+    elseif color == 'green' then
+      vim.cmd[[
+      let g:accent_colour = 'green'
+      colorscheme accent
+      ]]
+    elseif color == 'blue' then
+      vim.cmd[[
+      let g:accent_colour = 'blue'
+      colorscheme accent
+      ]]
+    elseif color == 'magenta' then
+      vim.cmd[[
+      let g:accent_colour = 'magenta'
+      colorscheme accent
+      ]]
+    elseif color == 'cyan' then
+      vim.cmd[[
+      let g:accent_colour = 'cyan'
+      colorscheme accent
+      ]]
+    else
+      vim.cmd[[
+      let g:accent_colour = 'green'
+      colorscheme accent
+      ]]
+    end
+end
+
+local callback = function(opts)
+    local color = opts.args
+    colors(color)
+end
+
+vim.api.nvim_create_user_command('Colors', callback, {
+  nargs = 1,
+})
+
+
 local function replace_journal_placeholders()
   local date = os.date("%d.%B %Y")
   local day = os.date("%A")
