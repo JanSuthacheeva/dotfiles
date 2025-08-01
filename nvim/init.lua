@@ -2,7 +2,7 @@
 -- title : Suckless NeoVim Config By Radley E. Sidwell-lewis
 -- author: Jan Suthacheeva
 -- ================================================================================================
---
+
  -- theme & transparency
 vim.cmd.colorscheme("accent")
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -102,8 +102,8 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete without yanking" })
 
 -- Buffer navigation
-vim.keymap.set("n", "[b", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "]b", ":bprevious<CR>", { desc = "Previous buffer" })
+vim.keymap.set("n", "]b", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "[b", ":bprevious<CR>", { desc = "Previous buffer" })
 vim.keymap.set("n", "<leader>x", ":bdelete<CR>", { desc = "Close buffer" })
 
 -- Better window navigation
@@ -639,330 +639,250 @@ setup_dynamic_statusline()
 -- LSP 
 -- ============================================================================
 
--- Function to find project root
-local function find_root(patterns)
-  local path = vim.fn.expand('%:p:h')
-  local root = vim.fs.find(patterns, { path = path, upward = true })[1]
-  return root and vim.fn.fnamemodify(root, ':h') or path
-end
-
--- Shell LSP setup
-local function setup_shell_lsp()
-  vim.lsp.start({
-    name = 'bashls',
-    cmd = {'bash-language-server', 'start'},
-    filetypes = {'sh', 'bash', 'zsh'},
-    root_dir = find_root({'.git', 'Makefile'}),
-    settings = {
-      bashIde = {
-        globPattern = "*@(.sh|.inc|.bash|.command)"
-      }
-    }
-  })
-end
-
--- Lua LSP setup
-local function setup_lua_lsp()
-    vim.lsp.start({
-        name = "lua_ls",
-        cmd = {"/opt/homebrew/bin/lua-language-server"},
-        filetypes = {"lua"},
-        root_dir = find_root({"init.lua", }),
-        settings = {
-        },
-    })
-end
-
--- PHP LSP setup
-local function setup_php_lsp()
-    vim.lsp.start({
-        name = 'intelephense',
-        cmd = { 'intelephense', '--stdio' },
-        filetypes = {'php'},
-        root_dir = find_root({'composer-lock.json', 'composer.json', '.git'}),
-        settings = {
-        },
-    })
-end
-
--- Python LSP setup
-local function setup_python_lsp()
-  vim.lsp.start({
-    name = 'pyright',
-    cmd = { 'pyright-langserver', '--stdio' },
-    filetypes = { 'python' },
-    root_dir = find_root({ 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', 'pyrightconfig.json', '.git' }),
-    settings = {
-        python = {
-            analysis = {
-                autoSearchPaths = true,
-                typeCheckingMode = "strict",
-            }
-        }
-    },
-  })
-end
-
--- Tailwind LSP setup
-local function setup_tailwind_lsp()
-    vim.lsp.start({
-        name = 'tailwindcss-language-server',
-        cmd = {'tailwindcss-language-server', '--stdio'},
-        filetypes = {'html', 'blade', 'php', 'javascript'},
-        root_dir = find_root({'.git'}),
-        settings = {
-        }
-    })
-end
-
--- HTML LSP setup
-local function setup_html_lsp()
-    vim.lsp.start({
-        name = 'html',
-        cmd = { 'vscode-html-language-server', '--stdio' },
-        filetypes = { 'html', 'javascript', 'blade', 'php' },
-        root_dir = find_root({'git'}),
-        settings = {
-        }
-    })
-    vim.lsp.start({
-        name = 'stimulus',
-        cmd = { 'stimulus-language-server', '--stdio' },
-        filetypes = { 'html', 'ruby', 'eruby', 'blade', 'php' },
-        root_dir = find_root({ 'Gemfile', '.git' }),
-        settings = {
-        },
-    })
-end
-
--- Laravel LSP setup
-local function setup_laravel_lsp()
-    vim.lsp.start({
-        name = 'laravel',
-        cmd = { 'laravel-ls' },
-        filetypes = { 'php', 'blade' },
-        root_dir = find_root({'artisan'}),
-        settings = {
-        }
-    })
-end
-
-
--- Auto-start LSPs based on filetype
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'sh,bash,zsh',
-  callback = setup_shell_lsp,
-  desc = 'Start shell LSP'
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'php,blade',
-  callback = setup_laravel_lsp,
-  desc = 'Start Laravel LSP'
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'html,css,blade',
-    callback = setup_tailwind_lsp,
-    desc = 'Start Tailwind LSP'
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'python',
-  callback = setup_python_lsp,
-  desc = 'Start Python LSP'
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'lua',
-    callback = setup_lua_lsp,
-    desc = 'Start lua LSP'
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'php',
-    callback = setup_php_lsp,
-    desc = 'Start PHP LSP'
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'html,blade,php',
-    callback = setup_html_lsp,
-    desc = 'Start HTML LSP'
-})
-
--- LSP keymaps 
-vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(event)
-    local opts = {buffer = event.buf}
-
-    -- Navigation
-    vim.keymap.set('n', 'gD', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gs', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-
-    -- Information
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-
-    -- Code actions
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-
-    -- Diagnostics
-    vim.keymap.set('n', '<leader>nd', vim.diagnostic.goto_next, opts)
-    vim.keymap.set('n', '<leader>pd', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
-    vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-  end,
-})
-
--- Better LSP UI
-vim.diagnostic.config({
-  virtual_text = { prefix = '●' },
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-})
-
-vim.diagnostic.config({
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = "✗",
-      [vim.diagnostic.severity.WARN] = "⚠",
-      [vim.diagnostic.severity.INFO] = "ℹ",
-      [vim.diagnostic.severity.HINT] = "💡",
-    }
-  }
-})
-
-vim.api.nvim_create_user_command('LspInfo', function()
-  local clients = vim.lsp.get_clients({ bufnr = 0 })
-  if #clients == 0 then
-    print("No LSP clients attached to current buffer")
-  else
-    for _, client in ipairs(clients) do
-      print("LSP: " .. client.name .. " (ID: " .. client.id .. ")")
-    end
-  end
-end, { desc = 'Show LSP client info' })
+-- -- Function to find project root
+-- local function find_root(patterns)
+--   local path = vim.fn.expand('%:p:h')
+--   local root = vim.fs.find(patterns, { path = path, upward = true })[1]
+--   return root and vim.fn.fnamemodify(root, ':h') or path
+-- end
+--
+-- -- Shell LSP setup
+-- local function setup_shell_lsp()
+--   vim.lsp.start({
+--     name = 'bashls',
+--     cmd = {'bash-language-server', 'start'},
+--     filetypes = {'sh', 'bash', 'zsh'},
+--     root_dir = find_root({'.git', 'Makefile'}),
+--     settings = {
+--       bashIde = {
+--         globPattern = "*@(.sh|.inc|.bash|.command)"
+--       }
+--     }
+--   })
+-- end
+--
+-- -- Lua LSP setup
+-- local function setup_lua_lsp()
+--     vim.lsp.start({
+--         name = "lua_ls",
+--         cmd = {"/opt/homebrew/bin/lua-language-server"},
+--         filetypes = {"lua"},
+--         root_dir = find_root({"init.lua", }),
+--         settings = {
+--         },
+--     })
+-- end
+--
+-- -- PHP LSP setup
+-- local function setup_php_lsp()
+--     vim.lsp.start({
+--         name = 'intelephense',
+--         cmd = { 'intelephense', '--stdio' },
+--         filetypes = {'php'},
+--         root_dir = find_root({'composer-lock.json', 'composer.json', '.git'}),
+--         settings = {
+--         },
+--     })
+-- end
+--
+-- local function set_python_path(path)
+--   local clients = vim.lsp.get_clients {
+--     bufnr = vim.api.nvim_get_current_buf(),
+--     name = 'pyright',
+--   }
+--   for _, client in ipairs(clients) do
+--     if client.settings then
+--       client.settings.python = vim.tbl_deep_extend('force', client.settings.python, { pythonPath = path })
+--     else
+--       client.config.settings = vim.tbl_deep_extend('force', client.config.settings, { python = { pythonPath = path } })
+--     end
+--     client.notify('workspace/didChangeConfiguration', { settings = nil })
+--   end
+-- end
+--
+-- -- Python LSP setup
+-- local function setup_python_lsp()
+--   vim.lsp.start({
+--     name = 'pyright',
+--     cmd = { 'pyright-langserver', '--stdio' },
+--     filetypes = { 'python' },
+--     root_dir = find_root({ 'pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile', 'pyrightconfig.json', '.git' }),
+--     settings = {
+--       python = {
+--         analysis = {
+--           autoSearchPaths = true,
+--           useLibraryCodeForTypes = true,
+--           diagnosticMode = 'openFilesOnly',
+--         },
+--       },
+--     },
+--     on_attach = function(client, bufnr)
+--       vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightOrganizeImports', function()
+--         client:exec_cmd({
+--           command = 'pyright.organizeimports',
+--           arguments = { vim.uri_from_bufnr(bufnr) },
+--         })
+--       end, {
+--         desc = 'Organize Imports',
+--       })
+--       vim.api.nvim_buf_create_user_command(bufnr, 'LspPyrightSetPythonPath', set_python_path, {
+--         desc = 'Reconfigure pyright with the provided python path',
+--         nargs = 1,
+--         complete = 'file',
+--       })
+--     end,
+--   })
+-- end
+--
+-- -- Tailwind LSP setup
+-- local function setup_tailwind_lsp()
+--     vim.lsp.start({
+--         name = 'tailwindcss-language-server',
+--         cmd = {'tailwindcss-language-server', '--stdio'},
+--         filetypes = {'html', 'blade', 'php', 'javascript'},
+--         root_dir = find_root({'.git'}),
+--         settings = {
+--         }
+--     })
+-- end
+--
+-- -- HTML LSP setup
+-- local function setup_html_lsp()
+--     vim.lsp.start({
+--         name = 'html',
+--         cmd = { 'vscode-html-language-server', '--stdio' },
+--         filetypes = { 'html', 'javascript', 'blade', 'php' },
+--         root_dir = find_root({'git'}),
+--         settings = {
+--         }
+--     })
+--     vim.lsp.start({
+--         name = 'stimulus',
+--         cmd = { 'stimulus-language-server', '--stdio' },
+--         filetypes = { 'html', 'ruby', 'eruby', 'blade', 'php' },
+--         root_dir = find_root({ 'Gemfile', '.git' }),
+--         settings = {
+--         },
+--     })
+-- end
+--
+-- -- Laravel LSP setup
+-- local function setup_laravel_lsp()
+--     vim.lsp.start({
+--         name = 'laravel',
+--         cmd = { 'laravel-ls' },
+--         filetypes = { 'php', 'blade' },
+--         root_dir = find_root({'artisan'}),
+--         settings = {
+--         }
+--     })
+-- end
+--
+--
+-- -- Auto-start LSPs based on filetype
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'sh,bash,zsh',
+--   callback = setup_shell_lsp,
+--   desc = 'Start shell LSP'
+-- })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'php,blade',
+--   callback = setup_laravel_lsp,
+--   desc = 'Start Laravel LSP'
+-- })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'html,css,blade',
+--     callback = setup_tailwind_lsp,
+--     desc = 'Start Tailwind LSP'
+-- })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'python',
+--   callback = setup_python_lsp,
+--   desc = 'Start Python LSP'
+-- })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'lua',
+--     callback = setup_lua_lsp,
+--     desc = 'Start lua LSP'
+-- })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'php',
+--     callback = setup_php_lsp,
+--     desc = 'Start PHP LSP'
+-- })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'html,blade,php',
+--     callback = setup_html_lsp,
+--     desc = 'Start HTML LSP'
+-- })
+--
+-- -- LSP keymaps 
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--   callback = function(event)
+--     local opts = {buffer = event.buf}
+--
+--     -- Navigation
+--     vim.keymap.set('n', 'gD', vim.lsp.buf.definition, opts)
+--     vim.keymap.set('n', 'gs', vim.lsp.buf.declaration, opts)
+--     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+--     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+--
+--     -- Information
+--     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+--     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+--
+--     -- Code actions
+--     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+--     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+--
+--     -- Diagnostics
+--     vim.keymap.set('n', '<leader>nd', vim.diagnostic.goto_next, opts)
+--     vim.keymap.set('n', '<leader>pd', vim.diagnostic.goto_prev, opts)
+--     vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, opts)
+--     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+--   end,
+-- })
+--
+-- -- Better LSP UI
+-- vim.diagnostic.config({
+--   virtual_text = { prefix = '●' },
+--   signs = true,
+--   underline = true,
+--   update_in_insert = false,
+--   severity_sort = true,
+-- })
+--
+-- vim.diagnostic.config({
+--   signs = {
+--     text = {
+--       [vim.diagnostic.severity.ERROR] = "✗",
+--       [vim.diagnostic.severity.WARN] = "⚠",
+--       [vim.diagnostic.severity.INFO] = "ℹ",
+--       [vim.diagnostic.severity.HINT] = "💡",
+--     }
+--   }
+-- })
+--
+-- vim.api.nvim_create_user_command('LspInfo', function()
+--   local clients = vim.lsp.get_clients({ bufnr = 0 })
+--   if #clients == 0 then
+--     print("No LSP clients attached to current buffer")
+--   else
+--     for _, client in ipairs(clients) do
+--       print("LSP: " .. client.name .. " (ID: " .. client.id .. ")")
+--     end
+--   end
+-- end, { desc = 'Show LSP client info' })
 
 
 vim.g.python3_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 vim.g.python_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 
--- -- Bootstrap lazy.nvim
--- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
--- if not vim.loop.fs_stat(lazypath) then
---   vim.fn.system({
---     "git",
---     "clone",
---     "--filter=blob:none",
---     "https://github.com/folke/lazy.nvim.git",
---     "--branch=stable",
---     lazypath,
---   })
--- end
--- vim.opt.rtp:prepend(lazypath)
---
--- -- Plugin setup
--- require("lazy").setup({
---   { "neovim/nvim-lspconfig" },
--- })
---
--- -- Setup LSPs
--- local lspconfig = require("lspconfig")
---
--- -- Lua LSP
--- lspconfig.lua_ls.setup({})
 
--- PHP
--- lspconfig.intelephense.setup({
---   commands = {
---     IntelephenseIndex = {
---       function()
---         vim.lsp.buf.execute_command({ command = 'intelephense.index.workspace' })
---       end,
---     },
---   },
---   on_attach = function(client, bufnr)
---     client.server_capabilities.documentFormattingProvider = false
---     client.server_capabilities.documentRangeFormattingProvider = false
---     -- if client.server_capabilities.inlayHintProvider then
---     --   vim.lsp.buf.inlay_hint(bufnr, true)
---     -- end
---   end,
---   capabilities = capabilities
--- })
-
--- Python
--- lspconfig.pyright.setup{}
---
--- vim.keymap.set('n', '<Leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
--- vim.keymap.set('n', 'gd', ':Telescope lsp_definitions<CR>')
--- vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
--- vim.keymap.set('n', 'gi', ':Telescope lsp_implementations<CR>')
--- vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>')
--- vim.keymap.set('n', '<Leader>lr', ':LspRestart<CR>', { silent = true })
--- vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
--- vim.keymap.set('n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
--- local function format_code()
-    --   local bufnr = vim.api.nvim_get_current_buf()
-    --   local filename = vim.api.nvim_buf_get_name(bufnr)
-    --   local filetype = vim.bo[bufnr].filetype
-    --   -- Save cursor position
-    --   local cursor_pos = vim.api.nvim_win_get_cursor(0)
-    --   if filetype == 'python' or filename:match('%.py$') then
-    --     if filename == '' then
-    --       print("Save the file first before formatting Python")
-    --       return
-    --     end
-    --
-    --     local black_cmd = "black --quiet " .. vim.fn.shellescape(filename)
-    --     local black_result = vim.fn.system(black_cmd)
-    --
-    --     if vim.v.shell_error == 0 then
-    --       vim.cmd('checktime')
-    --       vim.api.nvim_win_set_cursor(0, cursor_pos)
-    --       print("Formatted with black")
-    --       return
-    --     else
-    --       print("No Python formatter available (install black)")
-    --       return
-    --     end
-    --   end
-    --
-    --   if filetype == 'sh' or filetype == 'bash' or filename:match('%.sh$') then
-    --     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-    --     local content = table.concat(lines, '\n')
-    --
-    --     local cmd = {'shfmt', '-i', '2', '-ci', '-sr'}  -- 2 spaces, case indent, space redirects
-    --     local result = vim.fn.system(cmd, content)
-    --
-    --     if vim.v.shell_error == 0 then
-    --       local formatted_lines = vim.split(result, '\n')
-    --       if formatted_lines[#formatted_lines] == '' then
-    --         table.remove(formatted_lines)
-    --       end
-    --       vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, formatted_lines)
-    --       vim.api.nvim_win_set_cursor(0, cursor_pos)
-    --       print("Shell script formatted with shfmt")
-    --       return
-    --     else
-    --       print("shfmt error: " .. result)
-    --       return
-    --     end
-    --   end
-    --
-    --   print("No formatter available for " .. filetype)
-    -- end
-
-    -- vim.api.nvim_create_user_command("FormatCode", format_code, {
-        --   desc = "Format current file"
-        -- })
-
-        -- vim.keymap.set('n', '<leader>fm', format_code, { desc = 'Format file' })
-        -- formatting
-
+require('config.lazy')
