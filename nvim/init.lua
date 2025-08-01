@@ -689,14 +689,14 @@ end
 local function setup_python_lsp()
   vim.lsp.start({
     name = 'pyright',
-    cmd = {'pyright'},
+    cmd = { "pyright-langserver", "--stdio" },
     filetypes = {'python'},
-    root_dir = find_root({'*.py', 'requirements.txt', '.git'}),
+    root_dir = find_root({ "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", "pyrightconfig.json", ".git" }),
     settings = {
         python = {
             analysis = {
                 autoSearchPaths = true,
-                exclude = {"./env"},
+                exclude = {"venv"},
                 typeCheckingMode = "strict",
             }
         }
@@ -708,13 +708,46 @@ end
 local function setup_tailwind_lsp()
     vim.lsp.start({
         name = 'tailwindcss-language-server',
-        cmd = 'tailwindcss-language-server --stdio',
-        filetypes = {'html', 'css', 'jsx', 'tsx'},
+        cmd = {'tailwindcss-language-server', '--stdio'},
+        filetypes = {'html', 'blade', 'php', 'javascript'},
         root_dir = find_root({'.git'}),
         settings = {
         }
     })
 end
+
+-- HTML LSP setup
+local function setup_html_lsp()
+    vim.lsp.start({
+        name = 'html',
+        cmd = { 'vscode-html-language-server', '--stdio' },
+        filetypes = { 'html', 'javascript', 'blade', 'php' },
+        root_dir = find_root({'git'}),
+        settings = {
+        }
+    })
+    vim.lsp.start({
+        name = 'stimulus',
+        cmd = { 'stimulus-language-server', '--stdio' },
+        filetypes = { 'html', 'ruby', 'eruby', 'blade', 'php' },
+        root_dir = find_root({ 'Gemfile', '.git' }),
+        settings = {
+        },
+    })
+end
+
+-- Laravel LSP setup
+local function setup_laravel_lsp()
+    vim.lsp.start({
+        name = 'laravel',
+        cmd = { 'laravel-ls' },
+        filetypes = { 'php', 'blade' },
+        root_dir = find_root({'artisan'}),
+        settings = {
+        }
+    })
+end
+
 
 -- Auto-start LSPs based on filetype
 vim.api.nvim_create_autocmd('FileType', {
@@ -724,7 +757,13 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'html,css,blade.html',
+  pattern = 'php,blade',
+  callback = setup_laravel_lsp,
+  desc = 'Start Laravel LSP'
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'html,css,blade',
     callback = setup_tailwind_lsp,
     desc = 'Start Tailwind LSP'
 })
@@ -745,6 +784,12 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern = 'php',
     callback = setup_php_lsp,
     desc = 'Start PHP LSP'
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'html,blade,php',
+    callback = setup_html_lsp,
+    desc = 'Start HTML LSP'
 })
 
 -- LSP keymaps 
