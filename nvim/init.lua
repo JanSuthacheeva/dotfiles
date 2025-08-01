@@ -704,6 +704,18 @@ local function setup_python_lsp()
   })
 end
 
+-- Tailwind LSP setup
+local function setup_tailwind_lsp()
+    vim.lsp.start({
+        name = 'tailwindcss-language-server',
+        cmd = 'tailwindcss-language-server --stdio',
+        filetypes = {'html', 'css', 'jsx', 'tsx'},
+        root_dir = find_root({'.git'}),
+        settings = {
+        }
+    })
+end
+
 -- Auto-start LSPs based on filetype
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'sh,bash,zsh',
@@ -712,7 +724,13 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = 'python',
+    pattern = 'html,css,blade.html',
+    callback = setup_tailwind_lsp,
+    desc = 'Start Tailwind LSP'
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'py',
   callback = setup_python_lsp,
   desc = 'Start Python LSP'
 })
