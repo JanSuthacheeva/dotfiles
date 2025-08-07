@@ -1,4 +1,5 @@
 return {
+    {
     'neovim/nvim-lspconfig',
     event = 'VeryLazy',
     config = function() 
@@ -63,6 +64,8 @@ return {
         filetypes = { "html", "ruby", "eruby", "blade", "php" },
         })
 
+        require('lspconfig').gopls.setup({})
+
         -- HTML
         require('lspconfig').html.setup({
           capabilities = capabilities,
@@ -94,4 +97,8 @@ return {
         vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
         vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
     end,
+    },
+    {
+        'jwalton512/vim-blade'
+    }
 }
