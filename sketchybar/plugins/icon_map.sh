@@ -188,6 +188,15 @@ case $@ in
 "Bitwarden")
   icon_result=":bit_warden:"
   ;;
+"Docker" | "Docker Desktop")
+  icon_result=":docker:"
+  ;;
+"Ghostty")
+  icon_result=":ghostty:"
+  ;;
+"Postman")
+  icon_result=":postman:"
+  ;;
 "System Preferences" | "System Settings")
   icon_result=":gear:"
   ;;

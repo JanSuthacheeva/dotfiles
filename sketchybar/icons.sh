@@ -42,6 +42,9 @@ BATTERY_CHARGING=􀢋
 # Docker
 DOCKER_ICON=󰡨
 
+# Memory
+MEMORY=󰘚
+
 # Volume Icons
 VOLUME_100=􀊩
 VOLUME_66=􀊧
