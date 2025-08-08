@@ -1,8 +1,9 @@
 font-family = "Liga SFMono Nerd Font"
 font-size = 13
-theme = Adventure
+theme = Tokyonight-Storm
 font-thicken = true
 adjust-cell-height = 50%
+background-opacity = 0.8
 
 # Style
 window-padding-x = 4
