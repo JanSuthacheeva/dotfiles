@@ -2,6 +2,7 @@
 
 source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
 source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+source "$HOME/.config/sketchybar/plugins/icon_map.sh"
 
 ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
@@ -63,14 +64,13 @@ sketchybar --default "${defaults[@]}"
 
 # # Left
 source "$ITEM_DIR/apple.sh"
-# source "$ITEM_DIR/spaces.sh"
-# source "$ITEM_DIR/front_app.sh"
+source "$ITEM_DIR/spaces.sh"
+source "$ITEM_DIR/front_app.sh"
 
 # Center
 source "$ITEM_DIR/clock.sh"
 
 # # Right
-# source "$ITEM_DIR/calendar.sh"
 # source "$ITEM_DIR/brew.sh"
 # source "$ITEM_DIR/github.sh"
 source "$ITEM_DIR/battery.sh"
