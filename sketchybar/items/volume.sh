@@ -25,7 +25,6 @@ volume_icon=(
   label.width=25
   label.align=left
   label.font="$FONT:Regular:14.0"
-  padding_right=5
 )
 
 status_bracket=(
@@ -44,5 +43,5 @@ sketchybar --add slider volume right            \
            --add item volume_icon right         \
            --set volume_icon "${volume_icon[@]}"
 
-sketchybar --add bracket status volume_icon battery \
+sketchybar --add bracket status volume_icon battery docker \
            --set status "${status_bracket[@]}"
