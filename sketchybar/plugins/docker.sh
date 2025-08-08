@@ -1,8 +1,10 @@
 #!/bin/bash
 
 source "$HOME/.config/sketchybar/icons.sh"
+DOCKER_BIN="/usr/local/bin/docker"
 
-running=$(docker ps -q | wc -l | tr -d '[:space:]')
-total=$(docker ps -a -q | wc -l | tr -d '[:space:]')
+running=$($DOCKER_BIN ps -q | wc -l | tr -d '[:space:]')
 
-sketchybar --set $NAME icon="$DOCKER_ICON" label="$running/$total"
+total=$($DOCKER_BIN ps -a -q | wc -l | tr -d '[:space:]')
+
+sketchybar --set $NAME icon="$DOCKER_ICON" label="${running}"

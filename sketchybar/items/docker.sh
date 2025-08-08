@@ -10,3 +10,4 @@ docker=(
 
 sketchybar --add item docker right      \
            --set docker "${docker[@]}" \
+           --subscribe docker
