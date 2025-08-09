@@ -45,6 +45,9 @@ DOCKER_ICON=󰡨
 # Memory
 MEMORY=󰘚
 
+NEOVIM=
+CODE=
+
 # Volume Icons
 VOLUME_100=􀊩
 VOLUME_66=􀊧
