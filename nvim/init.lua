@@ -491,7 +491,7 @@ vim.api.nvim_create_user_command('Colors', callback, {
 vim.g.python3_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 vim.g.python_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 
-local is_transparent = true
+local is_transparent = false
 
 function ToggleTransparency()
   if is_transparent then
@@ -513,6 +513,11 @@ end
 -- Create a custom command :Transparent
 vim.api.nvim_create_user_command("Transparent", ToggleTransparency, {})
 
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function ()
+        ToggleTransparency()
+    end
+})
 
 
 require('config.lazy')

@@ -11,6 +11,9 @@ return {
         vim.keymap.set("n", "<leader>hn", function()
         harpoon:list():add()
         end)
+        vim.keymap.set("n", "<leader>hd", function()
+        harpoon:list():clear()
+        end)
         -- Toggle quick menu
         vim.keymap.set("n", "<leader>hh", function()
           harpoon.ui:toggle_quick_menu(harpoon:list())
