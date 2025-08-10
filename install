@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# This is still work in progress. Not finished at all!
+
 DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 
 rm -rf $HOME/.config/ghostty

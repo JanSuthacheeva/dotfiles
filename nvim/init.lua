@@ -1,11 +1,4 @@
--- ================================================================================================
--- title : Suckless NeoVim Config By Radley E. Sidwell-lewis
--- author: Jan Suthacheeva
--- ================================================================================================
-
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
--- vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+-- Credits to Radley E. Sidwell-lewis
 
 -- Basic settings
 vim.opt.number = true                              -- Line numbers
@@ -436,58 +429,6 @@ local function smart_close_buffer()
 end
 vim.keymap.set('n', '<leader>bd', smart_close_buffer, { desc = 'Smart close buffer/tab' })
 
-local function colors(color)
-    if color == 'yellow' then
-      vim.cmd[[
-      let g:accent_colour = 'yellow'
-      colorscheme accent
-      ]]
-    elseif color == 'orange' then
-      vim.cmd[[
-      let g:accent_colour = 'orange'
-      colorscheme accent
-      ]]
-    elseif color == 'red' then
-      vim.cmd[[
-      let g:accent_colour = 'red'
-      colorscheme accent
-      ]]
-    elseif color == 'green' then
-      vim.cmd[[
-      let g:accent_colour = 'green'
-      colorscheme accent
-      ]]
-    elseif color == 'blue' then
-      vim.cmd[[
-      let g:accent_colour = 'blue'
-      colorscheme accent
-      ]]
-    elseif color == 'magenta' then
-      vim.cmd[[
-      let g:accent_colour = 'magenta'
-      colorscheme accent
-      ]]
-    elseif color == 'cyan' then
-      vim.cmd[[
-      let g:accent_colour = 'cyan'
-      colorscheme accent
-      ]]
-    else
-      vim.cmd[[
-      let g:accent_colour = 'green'
-      colorscheme accent
-      ]]
-    end
-end
-
-local callback = function(opts) local color = opts.args
-    colors(color)
-end
-
-vim.api.nvim_create_user_command('Colors', callback, {
-  nargs = 1,
-})
-
 vim.g.python3_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 vim.g.python_host_prog = "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3"
 
@@ -521,6 +462,5 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 
 require('config.lazy')
-
  -- theme & transparency
 vim.cmd.colorscheme("tokyonight-storm")
