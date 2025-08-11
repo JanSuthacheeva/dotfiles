@@ -197,12 +197,6 @@ case $@ in
 "Postman")
   icon_result=":postman:"
   ;;
-"TablePlus")
-  icon_result=":tableplus:"
-  ;;
-"Line")
-  icon_result=":line:"
-  ;;
 "System Preferences" | "System Settings")
   icon_result=":gear:"
   ;;

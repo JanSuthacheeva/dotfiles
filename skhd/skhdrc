@@ -51,4 +51,3 @@ ctrl + lalt - l : yabai -m window --warp east
 
 # Toggle split direction
 shift + lalt - space : yabai -m window --toggle split
-
