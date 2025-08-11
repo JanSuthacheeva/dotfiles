@@ -15,6 +15,8 @@ export ZSH="/Users/jan/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(evalcache zsh-nvm osx git npm zsh-autosuggestions zsh-completions zsh-syntax-highlighting sublime)
 # Set list of themes to pick from when loading at random
