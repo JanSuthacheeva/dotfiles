@@ -6,10 +6,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jan/.oh-my-zsh"
+export ZSH="/Users/jansuthacheeva/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
