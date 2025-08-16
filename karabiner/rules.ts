@@ -61,27 +61,22 @@ const rules: KarabinerRules[] = [
     ),
     // b = "B"rowse
     b: {
-      t: open("https://twitter.com"),
-      // Quarterly "P"lan
-      p: open("https://qrtr.ly/plan"),
-      y: open("https://news.ycombinator.com"),
-      f: open("https://facebook.com"),
       r: open("https://reddit.com"),
+      c: open("https://clickup.com"),
     },
     // o = "Open" applications
     o: {
       g: app("Google Chrome"),
-      c: app("Timepage"),
       k: app("Ghostty"),
       s: app("Slack"),
+      c: app("CapCut"),
       t: app("TablePlus"),
-      b: app("Bear"),
-      n: app("Obsidian"),
       f: app("Finder"),
+      l: app("Line"),
+      d: app("Docker"),
       p: app("Postman"),
       m: app("Spotify"),
       v: app("Preview"),
-      d: app("Figma"),
     },
 
     // w = "Window" via rectangle.app
