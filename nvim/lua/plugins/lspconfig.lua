@@ -2,7 +2,7 @@ return {
     {
     'neovim/nvim-lspconfig',
     event = 'VeryLazy',
-    config = function() 
+    config = function()
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
         -- PHP
@@ -61,7 +61,7 @@ return {
         -- Stimulus for Blade and PHP
         require('lspconfig').stimulus_ls.setup({
         capabilities = capabilities,
-        filetypes = { "html", "ruby", "eruby", "blade", "php" },
+        filetypes = { "html", "ruby", "eruby", "blade" },
         })
 
         require('lspconfig').gopls.setup({})
