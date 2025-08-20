@@ -5,4 +5,5 @@ vim/undodir
 karabiner/node_modules
 karabiner/automatic_backups
 karabiner/.editor_config
+*/.DS_Store
 
