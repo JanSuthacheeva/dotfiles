@@ -2,14 +2,7 @@ return {
     {
     'neovim/nvim-lspconfig',
     event = 'VeryLazy',
-    dependencies = {
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
-        'b0o/schemastore.nvim',
-        -- { 'nvimtools/none-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-        -- 'jayp0521/mason-null-ls.nvim',
-    },
-    config = function() 
+    config = function()
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
         -- PHP
@@ -67,10 +60,17 @@ return {
           capabilities = capabilities
         })
         -- Stimulus for Blade and PHP
+<<<<<<< HEAD:nvim_backup/lua/plugins/lspconfig.lua
         -- require('lspconfig').stimulus_ls.setup({
         -- capabilities = capabilities,
         -- filetypes = { "html", "ruby", "eruby", "blade"},
         -- })
+=======
+        require('lspconfig').stimulus_ls.setup({
+        capabilities = capabilities,
+        filetypes = { "html", "ruby", "eruby", "blade" },
+        })
+>>>>>>> 6ccbc942bb2e55a26eedd3ca02131df853c97970:nvim/lua/plugins/lspconfig.lua
 
         require('lspconfig').gopls.setup({})
 
