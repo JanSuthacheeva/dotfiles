@@ -1,5 +1,5 @@
 return {
-'hrsh7th/nvim-cmp',
+ 'hrsh7th/nvim-cmp',
   event = "InsertEnter",
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
@@ -29,7 +29,6 @@ local source_map = {
       luasnip = "LuaSnip",
       nvim_lua = "Lua",
       path = "Path",
-      copilot = "Copilot",
     }
 
     local function ltrim(s)

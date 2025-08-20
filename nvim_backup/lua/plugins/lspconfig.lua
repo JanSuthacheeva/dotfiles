@@ -2,12 +2,17 @@ return {
     {
     'neovim/nvim-lspconfig',
     event = 'VeryLazy',
+    dependencies = {
+        'williamboman/mason.nvim',
+        'williamboman/mason-lspconfig.nvim',
+        'b0o/schemastore.nvim',
+        -- { 'nvimtools/none-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+        -- 'jayp0521/mason-null-ls.nvim',
+    },
     config = function() 
         local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
         -- PHP
-        --
-        require('lspconfig').laravel_ls.setup({})
 
         require('lspconfig').intelephense.setup({
           commands = {
@@ -17,21 +22,23 @@ return {
               end,
             },
           },
-          on_attach = function(client, bufnr)
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
+          -- on_attach = function(client)
+            -- client.server_capabilities.documentFormattingProvider = false
+            -- client.server_capabilities.documentRangeFormattingProvider = false
             -- if client.server_capabilities.inlayHintProvider then
             --   vim.lsp.buf.inlay_hint(bufnr, true)
             -- end
-          end,
+          -- end,
           capabilities = capabilities
         })
 
         -- Python
-        require'lspconfig'.pyright.setup{}
+        require'lspconfig'.pyright.setup({
+            capabilities = capabilities
+        })
 
          -- Tailwind CSS
-        require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
+        -- require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
 
         -- -- JSON
         -- require('lspconfig').jsonls.setup({
@@ -56,13 +63,14 @@ return {
                 },
               }
             }
-          }
+          },
+          capabilities = capabilities
         })
         -- Stimulus for Blade and PHP
-        require('lspconfig').stimulus_ls.setup({
-        capabilities = capabilities,
-        filetypes = { "html", "ruby", "eruby", "blade", "php" },
-        })
+        -- require('lspconfig').stimulus_ls.setup({
+        -- capabilities = capabilities,
+        -- filetypes = { "html", "ruby", "eruby", "blade"},
+        -- })
 
         require('lspconfig').gopls.setup({})
 
