@@ -21,7 +21,37 @@ vim.pack.add({
 
 require "mason".setup()
 require "mini.pick".setup()
-require "nvim-treesitter".setup()
+require "nvim-treesitter".setup({
+  ensure_installed = {"blade", "css", "go", "gomod", "html", "lua", "php", "python", "sql"},
+  auto_install = true,
+    highlight = {
+      enable = true,
+  },
+
+  config = function()
+      local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+      parser_config.blade = {
+        install_info = {
+          url = "https://github.com/EmranMR/tree-sitter-blade",
+          files = {"src/parser.c"},
+          branch = "main",
+        },
+        filetype = "blade"
+      }
+      vim.filetype.add({
+        pattern = {
+          ['.*%.blade%.php'] = 'blade',
+        },
+      })
+    end
+})
+require "nvim-treesitter.configs".setup({
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+})
+
 require "lualine".setup()
 
 vim.cmd [[colorscheme tokyonight-storm]]
