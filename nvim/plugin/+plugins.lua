@@ -4,19 +4,11 @@ vim.pack.add({
   { src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/AlexvZyl/nordic.nvim" },
   { src = "https://github.com/nvim-lualine/lualine.nvim",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
-  { src = "https://github.com/vim-test/vim-test",
-    config = function()
-      vim.cmd[[
-        let test#php#pest#executable = 'php artisan test'
-        let test#php#pest#options = '--colors=always'
-        let test#php#pest#options = '-v'
-        let test#strategy = 'vimterminal'
-      ]]
-    end
-  },
+  { src = "https://github.com/vim-test/vim-test" },
 })
 
 require "mason".setup()
@@ -54,4 +46,4 @@ require "nvim-treesitter.configs".setup({
 
 require "lualine".setup()
 
-vim.cmd [[colorscheme tokyonight-storm]]
+vim.cmd [[colorscheme nordic]]
