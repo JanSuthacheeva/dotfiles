@@ -18,3 +18,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end
 })
+
+-- Somehow vim-test does not load by default
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.cmd.packadd("vim-test")
+  end,
+})

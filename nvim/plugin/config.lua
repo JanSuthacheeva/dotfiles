@@ -82,3 +82,7 @@ vim.opt.diffopt:append("linematch:60")
 -- Performance improvements
 vim.opt.redrawtime = 10000
 vim.opt.maxmempattern = 20000
+
+vim.cmd[[
+    let g:tslime_autoset_pane = 1
+  ]]
