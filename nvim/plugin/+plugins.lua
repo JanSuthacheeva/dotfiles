@@ -47,6 +47,18 @@ require "nvim-treesitter.configs".setup({
 
 require "lualine".setup()
 
+-- Function to send a simple OSC sequence to the terminal
+local function send_ghostty_osc()
+  local esc = string.char(0x1B)      -- ESC
+  local st  = esc .. "\\"             -- String Terminator ESC \
+  local data = "133;👻 Ghostty 👻"     -- OSC identifier 2 = terminal title
+  local seq = esc .. "]" .. data .. st
+  vim.api.nvim_out_write(seq)         -- write directly to terminal
+end
+
+-- Vim command to trigger it
+vim.api.nvim_create_user_command("GhosttyTest", send_ghostty_osc, {})
+
 -- vim test config
 vim.cmd([[
     let test#php#pest#executable = 'php artisan test'
