@@ -47,24 +47,78 @@ require "nvim-treesitter.configs".setup({
 
 require "lualine".setup()
 
--- Function to send a simple OSC sequence to the terminal
-local function send_ghostty_osc()
-  local esc = string.char(0x1B)      -- ESC
-  local st  = esc .. "\\"             -- String Terminator ESC \
-  local data = "133;👻 Ghostty 👻"     -- OSC identifier 2 = terminal title
-  local seq = esc .. "]" .. data .. st
-  vim.api.nvim_out_write(seq)         -- write directly to terminal
-end
 
--- Vim command to trigger it
-vim.api.nvim_create_user_command("GhosttyTest", send_ghostty_osc, {})
 
 -- vim test config
 vim.cmd([[
-    let test#php#pest#executable = 'php artisan test'
-    let test#php#pest#options = '--colors=always'
-    let test#php#pest#options = '-v'
-    let test#strategy = 'terminal'
+
+  function! Get_OSC52(cmd)
+    let b64 = s:b64encode(a:cmd, 0)
+    let rv = "\e]52;c;" . b64 . "\x07"
+    call chansend(v:stderr, rv)
+    stop
+  endfun
+
+  " Lookup table for s:b64encode.
+  let s:b64_table = [
+        \ "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P",
+        \ "Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f",
+        \ "g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v",
+        \ "w","x","y","z","0","1","2","3","4","5","6","7","8","9","+","/"]
+  
+  " Encodes a string of bytes in base 64.
+  "
+  " Based on http://vim-soko.googlecode.com/svn-history/r405/trunk/vimfiles/
+  " autoload/base64.vim
+  "
+  " If size is > 0 the output will be line wrapped every `size` chars.
+  function! s:b64encode(str, size)
+    let bytes = s:str2bytes(a:str)
+    let b64 = []
+  
+    for i in range(0, len(bytes) - 1, 3)
+      let n = bytes[i] * 0x10000
+            \ + get(bytes, i + 1, 0) * 0x100
+            \ + get(bytes, i + 2, 0)
+      call add(b64, s:b64_table[n / 0x40000])
+      call add(b64, s:b64_table[n / 0x1000 % 0x40])
+      call add(b64, s:b64_table[n / 0x40 % 0x40])
+      call add(b64, s:b64_table[n % 0x40])
+    endfor
+  
+    if len(bytes) % 3 == 1
+      let b64[-1] = '='
+      let b64[-2] = '='
+    endif
+  
+    if len(bytes) % 3 == 2
+      let b64[-1] = '='
+    endif
+  
+    let b64 = join(b64, '')
+    if a:size <= 0
+      return b64
+    endif
+  
+    let chunked = ''
+    while strlen(b64) > 0
+      let chunked .= strpart(b64, 0, a:size) . "\n"
+      let b64 = strpart(b64, a:size)
+    endwhile
+    return chunked
+  endfun
+  
+  " String to bytes
+  function! s:str2bytes(str)
+    return map(range(len(a:str)), 'char2nr(a:str[v:val])')
+  endfun
+
+  let test#custom_strategies = {'ghostty': function('Get_OSC52')}
+
+  let test#php#pest#executable = 'php artisan test'
+  let test#php#pest#options = '--colors=always'
+  let test#php#pest#options = '-v'
+  let test#strategy = 'ghostty'
 ]])
 
 vim.cmd [[colorscheme nordic]]
