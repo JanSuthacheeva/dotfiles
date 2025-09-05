@@ -4,5 +4,6 @@ vim.lsp.enable({
   "pyright",
   "tailwindcss",
   "gopls",
-  "html"
+  "html",
+  "ts_ls"
 })
