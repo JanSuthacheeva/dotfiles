@@ -12,7 +12,7 @@ vim.pack.add({
 require "mason".setup()
 require "mini.pick".setup()
 require "nvim-treesitter".setup({
-  ensure_installed = {"blade", "css", "go", "gomod", "html", "lua", "php", "python", "sql"},
+  ensure_installed = {"blade", "css", "go", "gomod", "html", "lua", "php", "python", "swift", "sql"},
   auto_install = true,
     highlight = {
       enable = true,

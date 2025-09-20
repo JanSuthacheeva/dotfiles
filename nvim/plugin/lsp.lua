@@ -5,5 +5,6 @@ vim.lsp.enable({
   "tailwindcss",
   "gopls",
   "html",
-  "ts_ls"
+  "ts_ls",
+  "sourcekit"
 })
