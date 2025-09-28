@@ -37,6 +37,8 @@ return {
     ["Transmit"] = ":transmit:",
     ["TickTick"] = ":tick_tick:",
     ["Parallels Desktop"] = ":parallels:",
+    ["Postman"] = ":postman:",
+    ["Ghostty"] = ":vim:",
     ["Audacity"] = ":audacity:",
     ["Rider"] = ":rider:",
     ["JetBrains Rider"] = ":rider:",

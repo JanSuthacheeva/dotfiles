@@ -109,7 +109,8 @@ for i, workspace in ipairs(workspaces) do
                 highlight = selected
             },
             background = {
-                border_color = selected and settings.items.highlight_color(i) or settings.items.default_color(i)
+                border_color = selected and settings.items.highlight_color(i) or settings.items.default_color(i),
+                color = selected and settings.items.colors.backgroundWhite or settings.items.colors.background,
             }
         })
 

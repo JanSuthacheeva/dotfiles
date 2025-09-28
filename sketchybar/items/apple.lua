@@ -17,7 +17,7 @@ local apple = sbar.add("item", {
     },
     background = {
         color = settings.items.colors.background,
-        border_color = settings.modes.main.color,
+        border_color = colors.white,
         border_width = 1
     },
 

@@ -32,13 +32,16 @@ return {
             bottom = 0
         },
         default_color = function(workspace)
-            return colors.rainbow[workspace + 1]
+            return colors.white
+            -- return colors.rainbow[workspace + 1]
         end,
         highlight_color = function(workspace)
-            return colors.yellow
+            return colors.black
+            -- return colors.yellow
         end,
         colors = {
-            background = colors.bg1
+            background = colors.bg1,
+            backgroundWhite = colors.white
         },
         corner_radius = 6
     },

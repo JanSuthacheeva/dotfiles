@@ -106,7 +106,7 @@ end)
 sbar.add("bracket", "widgets.battery.bracket", {battery.name}, {
     background = {
         color = colors.bg1,
-        border_color = colors.rainbow[#colors.rainbow - 2],
+        border_color = colors.lightgrey,
         border_width = 1
     }
 })
