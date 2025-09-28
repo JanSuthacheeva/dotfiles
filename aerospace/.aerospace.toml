@@ -3,7 +3,10 @@
 
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = ['exec-and-forget sketchybar']
+after-startup-command = [
+  'exec-and-forget sketchybar',
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
+]
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -123,12 +126,12 @@ automatically-unhide-macos-hidden-apps = false
     ctrl-alt-cmd-shift-5 = 'workspace 5'
     ctrl-alt-cmd-shift-6 = 'workspace 6'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-    alt-shift-0 = 'move-node-to-workspace 1'
-    alt-shift-9 = 'move-node-to-workspace 2'
-    alt-shift-8 = 'move-node-to-workspace 3'
-    alt-shift-7 = 'move-node-to-workspace 4'
-    alt-shift-6 = 'move-node-to-workspace 5'
-    alt-shift-5 = 'move-node-to-workspace 6'
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
