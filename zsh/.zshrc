@@ -134,10 +134,3 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin/python3:$PAT
 export PATH=$PATH:$(go env GOPATH)/bin
 export CC="/usr/bin/gcc"
 export PATH="$PATH:$HOME/.composer/vendor/bin"
-
-function update_sketchybar_project() {
-  ~/.config/sketchybar/scripts/update_project.sh
-}
-autoload -U add-zsh-hook
-add-zsh-hook chpwd update_sketchybar_project
-update_sketchybar_project 

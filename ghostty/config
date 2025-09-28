@@ -12,6 +12,7 @@ macos-titlebar-style           = tabs
 mouse-hide-while-typing        = true
 title                          = " "
 macos-icon                     = "blueprint"
+background-opacity             = 0.7
 
 # QOL
 clipboard-paste-protection     = true

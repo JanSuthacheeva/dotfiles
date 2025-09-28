@@ -86,3 +86,4 @@ vim.opt.maxmempattern = 20000
 vim.cmd[[
     let g:tslime_autoset_pane = 1
   ]]
+
