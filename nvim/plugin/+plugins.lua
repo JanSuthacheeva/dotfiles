@@ -45,7 +45,17 @@ require "nvim-treesitter.configs".setup({
   },
 })
 
-require "lualine".setup()
+-- local custom_onelight = require'lualine.themes.onelight'
+
+-- Change the background of lualine_c section for normal mode
+-- custom_onelight.normal.a.bg = '#000000'
+-- custom_onelight.insert.a.bg = '#000000'
+
+require('lualine').setup {
+  -- options = { theme  = custom_onelight },
+  ...
+}
+
 
 
 
