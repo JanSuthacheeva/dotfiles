@@ -48,6 +48,7 @@ require "nvim-treesitter.configs".setup({
 require("nordic").setup({
     on_palette = function(palette)
         palette.gray4 = palette.white0
+        palette.gray5 = palette.white3
         palette.white0 = "#FFFFFF"
     end,
     italic_comments = true,
