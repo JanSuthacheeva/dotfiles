@@ -45,4 +45,35 @@ echo "Setting up AeroSpace config..."
 rm -rf $HOME/.aerospace.toml
 ln -s $DOTFILES/macos/aerospace/.aerospace.toml $HOME/.aerospace.toml
 
+# Check and install Sketchybar
+if ! command -v sketchybar &> /dev/null; then
+    echo "Sketchybar not found. Installing via Homebrew..."
+    brew install sketchybar
+else
+    echo "Sketchybar already installed"
+fi
+
+# Set up Sketchybar config symlink
+echo "Setting up Sketchybar config..."
+rm -rf $HOME/.config/sketchybar
+ln -s $DOTFILES/macos/sketchybar $HOME/.config/sketchybar
+
+# Set up app-icons symlink
+echo "Setting up app-icons..."
+rm -rf $HOME/.config/app-icons
+ln -s $DOTFILES/macos/app-icons $HOME/.config/app-icons
+
+# Check and install Borders
+if ! command -v borders &> /dev/null; then
+    echo "Borders not found. Installing via Homebrew..."
+    brew install borders
+else
+    echo "Borders already installed"
+fi
+
+# Set up Borders config symlink
+echo "Setting up Borders config..."
+rm -rf $HOME/.config/borders
+ln -s $DOTFILES/macos/borders $HOME/.config/borders
+
 echo "macOS dotfiles installation complete!"
