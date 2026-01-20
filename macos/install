@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -e
+
+DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}")/.. && pwd)
+
+echo "Installing macOS dotfiles..."
+
+# Check and install Ghostty
+if ! command -v ghostty &> /dev/null; then
+    echo "Ghostty not found. Installing via Homebrew..."
+    brew install --cask ghostty
+else
+    echo "Ghostty already installed"
+fi
+
+# Set up Ghostty config symlink
+echo "Setting up Ghostty config..."
+rm -rf $HOME/.config/ghostty
+ln -s $DOTFILES/macos/ghostty $HOME/.config/ghostty
+
+# Check and install Neovim
+if ! command -v nvim &> /dev/null; then
+    echo "Neovim not found. Installing via Homebrew..."
+    brew install neovim
+else
+    echo "Neovim already installed"
+fi
+
+# Set up Neovim config symlink
+echo "Setting up Neovim config..."
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/macos/nvim $HOME/.config/nvim
+
+# Check and install AeroSpace
+if ! command -v aerospace &> /dev/null; then
+    echo "AeroSpace not found. Installing via Homebrew..."
+    brew install --cask nikitabobko/tap/aerospace
+else
+    echo "AeroSpace already installed"
+fi
+
+# Set up AeroSpace config symlink
+echo "Setting up AeroSpace config..."
+rm -rf $HOME/.aerospace.toml
+ln -s $DOTFILES/macos/aerospace/.aerospace.toml $HOME/.aerospace.toml
+
+echo "macOS dotfiles installation complete!"

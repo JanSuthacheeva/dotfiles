@@ -13,6 +13,8 @@ mouse-hide-while-typing        = true
 title                          = " "
 macos-icon                     = "xray"
 background-opacity             = 0.7
+cursor-style                   = "block"
+cursor-style-blink             = false
 
 # QOL
 clipboard-paste-protection     = true
@@ -30,4 +32,6 @@ keybind = shift+ctrl+p=previous_tab
 keybind = shift+ctrl+x=close_surface
 keybind = shift+ctrl+t=toggle_window_decorations
 keybind = shift+ctrl+r=reload_config
+
+mouse-scroll-multiplier = 0.95
 
