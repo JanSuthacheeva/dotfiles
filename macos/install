@@ -76,4 +76,14 @@ echo "Setting up Borders config..."
 rm -rf $HOME/.config/borders
 ln -s $DOTFILES/macos/borders $HOME/.config/borders
 
+# Set up Zsh config
+echo "Setting up Zsh config..."
+rm -f $HOME/.zshrc
+ln -s $DOTFILES/macos/zsh/.zshrc $HOME/.zshrc
+
+# Set up Powerlevel10k config
+echo "Setting up Powerlevel10k config..."
+rm -f $HOME/.p10k.zsh
+ln -s $DOTFILES/macos/p10k/.p10k.zsh $HOME/.p10k.zsh
+
 echo "macOS dotfiles installation complete!"
