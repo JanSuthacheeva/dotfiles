@@ -1,0 +1,15 @@
+# Ignore everything by default
+*
+
+# Track these files
+!.gitignore
+!CLAUDE.md
+!settings.json
+
+# Track commands directory
+!commands/
+!commands/**
+
+# Track skills directory (user-defined skills only)
+!skills/
+!skills/**

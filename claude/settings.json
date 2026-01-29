@@ -1,0 +1,59 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(make test)",
+      "Read(~/projects/**)",
+      "Glob",
+      "Grep",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git branch*)",
+      "Bash(git show*)",
+      "Bash(ls*)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(go list*)",
+      "Bash(go doc*)",
+      "Bash(go version*)",
+      "Bash(go env*)",
+      "Bash(go mod graph*)",
+      "Bash(php --version*)",
+      "Bash(php -m*)",
+      "Bash(php -i*)",
+      "Bash(composer show*)",
+      "Bash(composer info*)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "php-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "buzzwoo-standard@buzzwoo-claude-plugins": true,
+    "buzzwoo-laravel@buzzwoo-claude-plugins": true,
+    "buzzwoo-web@buzzwoo-claude-plugins": true,
+    "sentry@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Honking",
+      "Being silly",
+      "Dropping DB tables",
+      "Chasing humans",
+      "Stealing bread",
+      "Waddling menacingly",
+      "Untying shoelaces",
+      "Flapping aggressively",
+      "Plotting chaos",
+      "Hissing at production"
+    ]
+  }
+}
