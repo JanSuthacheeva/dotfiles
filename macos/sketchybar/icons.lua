@@ -39,5 +39,10 @@ return {
         back = "􀊊",
         forward = "􀊌",
         play_pause = "􀊈"
+    },
+    claude = {
+        logo = "󰚩",
+        messages = "󰭹",
+        tokens = "󰘦"
     }
 }
