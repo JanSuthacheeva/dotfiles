@@ -86,6 +86,11 @@ echo "Setting up Powerlevel10k config..."
 rm -f $HOME/.p10k.zsh
 ln -s $DOTFILES/macos/p10k/.p10k.zsh $HOME/.p10k.zsh
 
+# Set up tmux config
+echo "Setting up tmux config..."
+rm -f $HOME/.tmux.conf
+ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+
 # Set up Claude Code config
 echo "Setting up Claude Code config..."
 mkdir -p $HOME/.claude
