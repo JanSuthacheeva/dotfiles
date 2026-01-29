@@ -91,6 +91,12 @@ echo "Setting up tmux config..."
 rm -f $HOME/.tmux.conf
 ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
+# Set up scripts
+echo "Setting up scripts..."
+mkdir -p $HOME/bin
+rm -f $HOME/bin/t
+ln -s $DOTFILES/scripts/t $HOME/bin/t
+
 # Set up Claude Code config
 echo "Setting up Claude Code config..."
 mkdir -p $HOME/.claude
