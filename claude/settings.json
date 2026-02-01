@@ -1,4 +1,8 @@
 {
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "permissions": {
     "allow": [
       "Bash(git status)",
@@ -39,7 +43,8 @@
     "buzzwoo-laravel@buzzwoo-claude-plugins": true,
     "buzzwoo-web@buzzwoo-claude-plugins": true,
     "sentry@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "context7@claude-plugins-official": true
   },
   "spinnerVerbs": {
     "mode": "replace",
