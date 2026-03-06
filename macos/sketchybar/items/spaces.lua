@@ -61,6 +61,9 @@ spaces_indicator:subscribe("mouse.clicked", function(env)
     sbar.trigger("swap_menus_and_spaces")
 end)
 
+local teal = 0xff4fd6be
+local light_blue = 0xffa6e3f0
+
 local workspaces = get_workspaces()
 local current_workspace = get_current_workspace()
 local function split(str, sep)
@@ -76,17 +79,17 @@ for i, workspace in ipairs(workspaces) do
     local selected = workspace == current_workspace
     local space = sbar.add("item", "item." .. i, {
         icon = {
-            string = selected and "●" or "●",
-            font = { size = selected and 36.0 or 28.0 },
+            string = "●",
+            font = { size = selected and 22.0 or 16.0 },
             padding_left = 0,
             padding_right = 0,
             color = selected and colors.white or colors.grey,
-            y_offset = selected and 1 or 0,
+            y_offset = 0,
         },
         label = {
             drawing = false,
         },
-        width = selected and 24 or 16,
+        width = selected and 18 or 14,
         align = "center",
         padding_right = 0,
         padding_left = 0,
@@ -120,12 +123,12 @@ for i, workspace in ipairs(workspaces) do
         sbar.animate("circ", 20, function()
             space:set({
                 icon = {
-                    string = selected and "●" or "●",
-                    font = { size = selected and 36.0 or 28.0 },
+                    string = "●",
+                    font = { size = selected and 22.0 or 16.0 },
                     color = selected and colors.white or colors.grey,
-                    y_offset = selected and 1 or 0,
+                    y_offset = 0,
                 },
-                width = selected and 24 or 16,
+                width = selected and 18 or 14,
             })
         end)
     end)
@@ -156,4 +159,6 @@ for i, workspace in ipairs(workspaces) do
         })
     end)
 end
+
+
 
