@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+# TODO: hyprland (including all subprograms)
+
+set -e
+
+DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}")/../.. && pwd)
+
+ensure_installed() {
+    for pkg in "$@"; do
+    	if pacman -Q "$pkg" &>/dev/null; then
+	  echo "$pkg already installed"
+   	else
+	  echo "Installing $pkg..."
+	  sudo pacman -S --noconfirm "$pkg"
+	fi
+    done
+}
+
+mkdir -p $HOME/.config
+
+echo "Setup Linux dotfiles..."
+echo "----------------------------"
+echo " "
+echo "Installing packages..."
+echo " "
+ensure_installed hyprland hyprpaper ghostty neovim tmux bob zsh lazygit
+
+echo " "
+echo "----------------------------"
+echo " "
+echo "Checking basic configurations..."
+
+if [ -f "$HOME/.dircolors" ]; then
+    echo ".dircolors already present"
+else
+    echo "Creating .dircolors..."
+    dircolors -p > "$HOME/.dircolors"
+fi
+
+if [ -f "$HOME/.zshenv" ]; then
+    echo ".zshenv already present"
+else
+    echo "Creating .zshenv..."
+    cp "$DOTFILES/linux/zsh/.zshenv" "$HOME/.zshenv"
+fi
+
+if [ -f "$HOME/.zshrc" ]; then
+    echo ".zshrc already present"
+else
+    echo "Creating .zshrc..."
+    cp "$DOTFILES/linux/zsh/.zshrc" "$HOME/.zshrc"
+fi
+
+echo " "
+echo "----------------------------"
+echo " "
+
+echo "Setting up Hyprland config..."
+rm -rf $HOME/.config/hypr
+ln -s $DOTFILES/linux/arch/hypr $HOME/.config/hypr
+echo " "
+
+# Set up Ghostty config symlink
+echo "Setting up Ghostty config..."
+rm -rf $HOME/.config/ghostty
+ln -s $DOTFILES/linux/arch/ghostty $HOME/.config/ghostty
+echo " "
+
+# Set up Neovim config symlink
+echo "Setting up Neovim config..."
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/nvim $HOME/.config/nvim
+echo " "
+
+# Set up Lazygit config symlink
+echo "Setting up Lazygit config..."
+rm -rf $HOME/.config/lazygit
+ln -s $DOTFILES/lazygit $HOME/.config/lazygit
+echo " "
+
+# Set up tmux config
+echo "Setting up tmux config..."
+rm -f $HOME/.tmux.conf
+ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+echo " "
+
+# Set up scripts
+echo "Setting up scripts..."
+mkdir -p $HOME/bin
+rm -f $HOME/bin/t
+ln -s $DOTFILES/scripts/t $HOME/bin/t
+echo " "
+
+
+
+
+# Set up Claude Code config
+echo "Setting up Claude Code config..."
+mkdir -p $HOME/.claude
+rm -f $HOME/.claude/CLAUDE.md
+ln -s $DOTFILES/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
+rm -f $HOME/.claude/settings.json
+ln -s $DOTFILES/claude/settings.json $HOME/.claude/settings.json
+rm -rf $HOME/.claude/commands
+ln -s $DOTFILES/claude/commands $HOME/.claude/commands
+rm -rf $HOME/.claude/skills
+ln -s $DOTFILES/claude/skills $HOME/.claude/skills
+
+echo "Linux dotfiles installation complete!"
