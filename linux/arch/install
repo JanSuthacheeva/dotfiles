@@ -24,7 +24,7 @@ echo "----------------------------"
 echo " "
 echo "Installing packages..."
 echo " "
-ensure_installed hyprland hyprpaper ghostty neovim tmux bob zsh lazygit
+ensure_installed hyprland hyprpaper ghostty neovim tmux bob zsh lazygit ttf-jetbrains-mono-nerd
 
 echo " "
 echo "----------------------------"
