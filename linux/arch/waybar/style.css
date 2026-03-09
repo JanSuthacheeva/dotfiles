@@ -91,7 +91,7 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-  color: #B5E8E0;
+  color: #f9e2af;
   background: transparent;
   padding: 4px 4px;
   transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
@@ -102,12 +102,12 @@ window#waybar.hidden {
 }
 
 #workspaces button.occupied {
-  color: #A6E3A1;
+  color: #f9e2af;
 }
 
 #workspaces button.active {
-  color: #89B4FA;
-  text-shadow: 0 0 4px #ABE9B3;
+  color: #f9e2af;
+  text-shadow: 0 0 4px #f9e2af;
 }
 
 #workspaces button:hover {

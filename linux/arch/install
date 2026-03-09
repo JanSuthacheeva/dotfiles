@@ -24,8 +24,8 @@ echo "----------------------------"
 echo " "
 echo "Installing packages..."
 echo " "
-ensure_installed hyprland hyprpaper ghostty neovim tmux bob zsh lazygit ttf-jetbrains-mono-nerd waybar
-
+ensure_installed hyprland hyprpaper hyprlock ghostty neovim tmux bob zsh lazygit waybar rofi-wayland
+ensure_installed awesome-terminal-fonts otf-font-awesome ttf-font-awesome ttf-jetbrains-mono ttf-jetbrains-mono-nerd nerd-fonts
 echo " "
 echo "----------------------------"
 echo " "
@@ -64,6 +64,11 @@ echo " "
 echo "Setting up Waybar config..."
 rm -rf $HOME/.config/waybar
 ln -s $DOTFILES/linux/arch/waybar $HOME/.config/waybar
+echo " "
+
+echo "Setting up Rofi config..."
+rm -rf $HOME/.config/rofi
+ln -s $DOTFILES/linux/arch/rofi $HOME/.config/rofi
 echo " "
 
 # Set up Ghostty config symlink
