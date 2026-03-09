@@ -15,13 +15,13 @@ end
 for i, workspace in ipairs(workspaces) do
     local selected = workspace == current_workspace
     local space = sbar.add("item", "item." .. i, {
-        position = "center",
+        position = "left",
         icon = {
             string = "●",
             font = { size = selected and 22.0 or 16.0 },
             padding_left = 2,
             padding_right = 2,
-            color = selected and colors.white or colors.grey,
+            color = selected and colors.yellow or colors.grey,
             y_offset = 0,
         },
         label = {
@@ -68,7 +68,7 @@ for i, workspace in ipairs(workspaces) do
         if sel then
             sbar.animate("circ", 20, function()
                 space:set({
-                    icon = { font = { size = 22.0 }, color = colors.white },
+                    icon = { font = { size = 22.0 }, color = colors.yellow },
                     width = 20,
                 })
             end)

@@ -2,6 +2,7 @@ local settings = require("settings")
 local colors = require("colors")
 
 local cal = sbar.add("item", "cal", {
+    update_freq = 30,
     position = "left",
     icon = {
         drawing = false

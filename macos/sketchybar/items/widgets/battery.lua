@@ -2,6 +2,7 @@ local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
 
+-- Battery (leftmost pill: rounded left edge)
 local battery = sbar.add("item", "widgets.battery", {
     position = "right",
     icon = {
@@ -10,14 +11,27 @@ local battery = sbar.add("item", "widgets.battery", {
             size = 19.0
         },
         color = colors.black,
+        padding_left = 8,
+        padding_right = 2,
     },
     label = {
         font = {
-            family = settings.font.numbers
+            family = settings.font.numbers,
+            style = settings.font.style_map["Bold"],
+            size = 13.0,
         },
         color = colors.black,
+        padding_right = 10,
     },
+    padding_left = 0,
+    padding_right = -4,
     update_freq = 180,
+    background = {
+        color = colors.pill_rose,
+        height = settings.items.height,
+        corner_radius = settings.items.corner_radius,
+        border_width = 0,
+    },
     popup = {
         align = "center"
     }
@@ -48,7 +62,6 @@ battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
             label = charge .. "%"
         end
 
-        local color = colors.green
         local charging, _, _ = batt_info:find("AC Power")
 
         if charging then
@@ -62,10 +75,8 @@ battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
                 icon = icons.battery._50
             elseif found and charge > 20 then
                 icon = icons.battery._25
-                color = colors.orange
             else
                 icon = icons.battery._0
-                color = colors.red
             end
         end
 
@@ -77,7 +88,6 @@ battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
         battery:set({
             icon = {
                 string = icon,
-                color = color
             },
             label = {
                 string = lead .. label
@@ -104,17 +114,3 @@ battery:subscribe("mouse.clicked", function(env)
         end)
     end
 end)
-
-sbar.add("bracket", "widgets.battery.bracket", {battery.name}, {
-    background = {
-        color = colors.pill_green,
-        corner_radius = settings.items.corner_radius,
-        height = settings.items.height,
-        border_width = 0,
-    }
-})
-
-sbar.add("item", "widgets.battery.padding", {
-    position = "right",
-    width = settings.group_paddings
-})

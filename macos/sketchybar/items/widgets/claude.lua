@@ -47,6 +47,7 @@ local claude_msgs = sbar.add("item", "widgets.claude1", {
 local claude_tokens = sbar.add("item", "widgets.claude2", {
     position = "right",
     padding_left = -5,
+    update_freq = 60,
     icon = {
         padding_right = 0,
         font = {
@@ -291,7 +292,7 @@ local function update_claude_stats()
     })
 end
 
-claude_msgs:subscribe({"routine", "forced", "system_woke"}, update_claude_stats)
+claude_tokens:subscribe({"routine", "forced", "system_woke"}, update_claude_stats)
 
 local function hide_details()
     claude_bracket:set({

@@ -1,7 +1,7 @@
 return {
     plus = "􀅼",
     loading = "􀖇",
-    apple = "",
+    apple = "",
     rebel = "",
     empire = "",
     gear = "􀍟",

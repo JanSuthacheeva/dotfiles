@@ -4,6 +4,7 @@ local settings = require("settings")
 
 local layout_map = {
     ["ABC"]                 = "ENG",
+    ["ABC-QWERTZ"]          = "DEU",
     ["US"]                  = "ENG",
     ["USInternational-PC"]  = "ENG",
     ["British"]             = "ENG",
@@ -14,53 +15,37 @@ local layout_map = {
     ["Thai-PattaChote"]     = "THA",
 }
 
-local input_label = sbar.add("item", "widgets.input.label", {
+-- Input source (rightmost pill: rounded right edge)
+local input_source = sbar.add("item", "widgets.input_source", {
     position = "right",
-    icon = { drawing = false },
+    icon = {
+        string = icons.keyboard,
+        font = {
+            style = settings.font.style_map["Regular"],
+            size = 16.0
+        },
+        color = colors.black,
+        padding_left = 8,
+        padding_right = 4,
+    },
     label = {
         string = "...",
         color = colors.black,
         font = {
             family = settings.font.numbers,
             style = settings.font.style_map["Bold"],
-            size = 13.0
+            size = 13.0,
         },
-        padding_left = 8,
-        padding_right = 0,
-    },
-    padding_left = 0,
-    padding_right = 0,
-})
-
-local input_icon = sbar.add("item", "widgets.input.icon", {
-    position = "right",
-    icon = {
-        string = icons.keyboard,
-        color = colors.black,
-        font = {
-            style = settings.font.style_map["Regular"],
-            size = 16.0
-        },
-        padding_left = 4,
         padding_right = 8,
     },
-    label = { drawing = false },
     padding_left = 0,
     padding_right = 0,
-})
-
-sbar.add("bracket", "widgets.input.bracket", { input_label.name, input_icon.name }, {
     background = {
-        color = colors.pill_mauve,
-        corner_radius = settings.items.corner_radius,
+        color = colors.pill_green,
         height = settings.items.height,
+        corner_radius = settings.items.corner_radius,
         border_width = 0,
-    }
-})
-
-sbar.add("item", "widgets.input.padding", {
-    position = "right",
-    width = settings.group_paddings
+    },
 })
 
 local function update_input_source()
@@ -69,13 +54,16 @@ local function update_input_source()
         function(result)
             local layout = result:gsub("%s+", "")
             local display = layout_map[layout] or layout:sub(1, 3):upper()
-            input_label:set({ label = display })
+            input_source:set({ label = display })
         end
     )
 end
 
--- Poll every 5 seconds since there's no native input source change event
-input_label:set({ update_freq = 5 })
-input_label:subscribe({"routine", "forced"}, function()
+-- Register a custom event that can be triggered externally
+sbar.add("event", "input_source_change")
+
+-- Poll every 2 seconds as fallback, and react to app switches + custom event
+input_source:set({ update_freq = 2 })
+input_source:subscribe({"routine", "forced", "front_app_switched", "input_source_change"}, function()
     update_input_source()
 end)
