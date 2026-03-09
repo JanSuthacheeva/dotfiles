@@ -86,6 +86,11 @@ echo "Setting up Powerlevel10k config..."
 rm -f $HOME/.p10k.zsh
 ln -s $DOTFILES/macos/p10k/.p10k.zsh $HOME/.p10k.zsh
 
+# Set up Lazygit config symlink
+echo "Setting up Lazygit config..."
+rm -rf $HOME/.config/lazygit
+ln -s $DOTFILES/lazygit $HOME/.config/lazygit
+
 # Set up tmux config
 echo "Setting up tmux config..."
 rm -f $HOME/.tmux.conf

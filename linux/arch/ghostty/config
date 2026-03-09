@@ -1,10 +1,13 @@
 # Dynamic theme colors
-config-file = ?"~/.config/omarchy/current/theme/ghostty.conf"
+# config-file = ?""
 
 # Font
 font-family = "JetBrainsMono Nerd Font"
 font-style = Regular
 font-size = 9
+theme = Nord
+font-thicken = true
+adjust-cell-height = 50%
 
 # Window
 window-theme = ghostty
@@ -13,7 +16,7 @@ window-padding-y = 14
 confirm-close-surface=false
 resize-overlay = never
 gtk-toolbar-style = flat
-background-opacity             = 0.7
+# background-opacity             = 0.7
 
 # Cursor styling
 cursor-style = "block"

@@ -1,5 +1,6 @@
 .DS_Store
 nvim/lazy-lock.json
+nvim/nvim-pack-lock.json
 nvim/undodir
 vim/undodir
 karabiner/node_modules
