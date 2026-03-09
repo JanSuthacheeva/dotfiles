@@ -13,8 +13,7 @@ return {
     transparent = 0x00000000,
 
     bar = {
-        -- bg = 0xd02c2e34,
-        bg = 0x00000000,
+        bg = 0xcc1a1b26,
         border = 0xff2c2e34
     },
     popup = {
@@ -24,8 +23,16 @@ return {
     bg1 = 0xff363944,
     bg2 = 0xff414550,
 
-    -- rainbow = {0xffff007c, 0xffc53b53, 0xffff757f, 0xff41a6b5, 0xff4fd6be, 0xffc3e88d, 0xffffc777, 0xff9d7cd8,
-               -- 0xffff9e64, 0xffbb9af7, 0xff7dcfff, 0xff7aa2f7},
+    pill_green = 0xffabeab4,
+    pill_pink = 0xffa04065,
+    pill_blue = 0xff4065a0,
+    pill_purple = 0xff6540a0,
+    pill_mauve = 0xffa06585,
+    pill_cpu = 0xff96cdfb,
+    pill_mem = 0xffddb7f2,
+    pill_disk = 0xfff5c2e7,
+    pill_temp = 0xfff8be96,
+
     rainbow = {0xffff007c, 0xffc53b53, 0xffff757f, 0xff41a6b5, 0xff4fd6be, 0xffc3e88d, 0xffffc777, 0xff9d7cd8,
                0xffff9e64, 0xffbb9af7, 0xff7dcfff, 0xff7aa2f7},
 

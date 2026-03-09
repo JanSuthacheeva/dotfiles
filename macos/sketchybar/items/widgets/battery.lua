@@ -8,12 +8,14 @@ local battery = sbar.add("item", "widgets.battery", {
         font = {
             style = settings.font.style_map["Regular"],
             size = 19.0
-        }
+        },
+        color = colors.black,
     },
     label = {
         font = {
             family = settings.font.numbers
-        }
+        },
+        color = colors.black,
     },
     update_freq = 180,
     popup = {
@@ -105,9 +107,10 @@ end)
 
 sbar.add("bracket", "widgets.battery.bracket", {battery.name}, {
     background = {
-        color = colors.bg1,
-        border_color = colors.lightgrey,
-        border_width = 1
+        color = colors.pill_green,
+        corner_radius = settings.items.corner_radius,
+        height = settings.items.height,
+        border_width = 0,
     }
 })
 

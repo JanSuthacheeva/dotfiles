@@ -1,5 +1,5 @@
-require("items.widgets.battery")
-require("items.widgets.volume")
+-- Right side: first loaded = rightmost
+require("items.widgets.input_source")
 require("items.widgets.wifi")
-require("items.widgets.cpu")
-require("items.widgets.claude")
+require("items.widgets.volume")
+require("items.widgets.battery")

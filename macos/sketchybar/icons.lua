@@ -40,6 +40,11 @@ return {
         forward = "􀊌",
         play_pause = "􀊈"
     },
+    memory = "󰍛",
+    disk = "󰋊",
+    temp = "󰔏",
+    keyboard = "󰌌",
+
     claude = {
         logo = "󰚩",
         messages = "󰭹",

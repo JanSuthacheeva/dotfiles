@@ -12,8 +12,11 @@ local volume_percent = sbar.add("item", "widgets.volume1", {
     label = {
         string = "??%",
         padding_left = -1,
+        padding_right = 8,
         font = {
-            family = settings.font.numbers
+            family = settings.font.numbers,
+            style = settings.font.style_map["Bold"],
+            size = 13.0
         }
     }
 })
@@ -25,7 +28,7 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
         string = icons.volume._100,
         width = 0,
         align = "left",
-        color = colors.grey,
+        color = colors.black,
         font = {
             style = settings.font.style_map["Regular"],
             size = 14.0
@@ -43,9 +46,10 @@ local volume_icon = sbar.add("item", "widgets.volume2", {
 
 local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {volume_icon.name, volume_percent.name}, {
     background = {
-        color = colors.bg1,
-        border_color = colors.lightgrey,
-        border_width = 1
+        color = colors.pill_blue,
+        corner_radius = settings.items.corner_radius,
+        height = settings.items.height,
+        border_width = 0,
     },
     popup = {
         align = "center"
@@ -181,4 +185,3 @@ volume_icon:subscribe("mouse.scrolled", volume_scroll)
 volume_percent:subscribe("mouse.clicked", volume_toggle_details)
 volume_percent:subscribe("mouse.exited.global", volume_collapse_details)
 volume_percent:subscribe("mouse.scrolled", volume_scroll)
-

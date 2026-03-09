@@ -1,71 +1,8 @@
 local colors = require("colors")
-local icons = require("icons")
-
--- Spaces / menus toggle
-local spaces_indicator = sbar.add("item", {
-    padding_left = -3,
-    padding_right = 0,
-    icon = {
-        padding_left = 8,
-        padding_right = 9,
-        color = colors.grey,
-        string = icons.switch.on
-    },
-    label = {
-        width = 0,
-        padding_left = 0,
-        padding_right = 8,
-        string = "Spaces",
-        color = colors.bg1
-    },
-    background = {
-        color = colors.with_alpha(colors.grey, 0.0),
-        border_color = colors.with_alpha(colors.bg1, 0.0)
-    }
-})
-
-spaces_indicator:subscribe("swap_menus_and_spaces", function(env)
-    local currently_on = spaces_indicator:query().icon.value == icons.switch.on
-    spaces_indicator:set({
-        icon = currently_on and icons.switch.off or icons.switch.on
-    })
-end)
-
-spaces_indicator:subscribe("mouse.entered", function(env)
-    sbar.animate("tanh", 30, function()
-        spaces_indicator:set({
-            background = {
-                color = { alpha = 1.0 },
-                border_color = { alpha = 1.0 }
-            },
-            icon = { color = colors.bg1 },
-            label = { width = "dynamic" }
-        })
-    end)
-end)
-
-spaces_indicator:subscribe("mouse.exited", function(env)
-    sbar.animate("tanh", 30, function()
-        spaces_indicator:set({
-            background = {
-                color = { alpha = 0.0 },
-                border_color = { alpha = 0.0 }
-            },
-            icon = { color = colors.grey },
-            label = { width = 0 }
-        })
-    end)
-end)
-
-spaces_indicator:subscribe("mouse.clicked", function(env)
-    sbar.trigger("swap_menus_and_spaces")
-end)
-
-local teal = 0xff4fd6be
-local light_blue = 0xffa6e3f0
 
 local workspaces = get_workspaces()
 local current_workspace = get_current_workspace()
+
 local function split(str, sep)
     local result = {}
     local regex = ("([^%s]+)"):format(sep)
@@ -78,18 +15,19 @@ end
 for i, workspace in ipairs(workspaces) do
     local selected = workspace == current_workspace
     local space = sbar.add("item", "item." .. i, {
+        position = "center",
         icon = {
             string = "●",
             font = { size = selected and 22.0 or 16.0 },
-            padding_left = 0,
-            padding_right = 0,
+            padding_left = 2,
+            padding_right = 2,
             color = selected and colors.white or colors.grey,
             y_offset = 0,
         },
         label = {
             drawing = false,
         },
-        width = selected and 18 or 14,
+        width = selected and 20 or 16,
         align = "center",
         padding_right = 0,
         padding_left = 0,
@@ -103,6 +41,13 @@ for i, workspace in ipairs(workspaces) do
             }
         }
     })
+
+    -- Set color based on whether workspace has windows
+    if not selected then
+        sbar.exec("aerospace list-windows --workspace " .. i .. " --format '%{app-name}' --json", function(apps)
+            space:set({ icon = { color = (#apps > 0) and colors.grey or colors.black } })
+        end)
+    end
 
     -- Item popup
     local space_popup = sbar.add("item", {
@@ -119,18 +64,24 @@ for i, workspace in ipairs(workspaces) do
     })
 
     space:subscribe("aerospace_workspace_change", function(env)
-        local selected = env.FOCUSED_WORKSPACE == workspace
-        sbar.animate("circ", 20, function()
-            space:set({
-                icon = {
-                    string = "●",
-                    font = { size = selected and 22.0 or 16.0 },
-                    color = selected and colors.white or colors.grey,
-                    y_offset = 0,
-                },
-                width = selected and 18 or 14,
-            })
-        end)
+        local sel = env.FOCUSED_WORKSPACE == workspace
+        if sel then
+            sbar.animate("circ", 20, function()
+                space:set({
+                    icon = { font = { size = 22.0 }, color = colors.white },
+                    width = 20,
+                })
+            end)
+        else
+            sbar.exec("aerospace list-windows --workspace " .. i .. " --format '%{app-name}' --json", function(apps)
+                sbar.animate("circ", 20, function()
+                    space:set({
+                        icon = { font = { size = 16.0 }, color = (#apps > 0) and colors.grey or colors.black },
+                        width = 16,
+                    })
+                end)
+            end)
+        end
     end)
 
     space:subscribe("mouse.clicked", function(env)
@@ -159,6 +110,3 @@ for i, workspace in ipairs(workspaces) do
         })
     end)
 end
-
-
-

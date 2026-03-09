@@ -3,7 +3,7 @@ local icons = require("icons")
 
 return {
     paddings = 3,
-    group_paddings = 5,
+    group_paddings = 8,
     modes = {
         main = {
             icon = icons.rebel,
@@ -18,6 +18,7 @@ return {
         height = 36,
         padding = {
             x = 10,
+            x_right = 18,
             y = 0
         },
         background = colors.bar.bg
