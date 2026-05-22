@@ -49,8 +49,8 @@ plugins=(evalcache zsh-nvm osx git npm zsh-autosuggestions zsh-completions zsh-s
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Disable oh-my-zsh from overriding tmux window names
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -134,3 +134,7 @@ export PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin/python3:$PAT
 export PATH=$PATH:$(go env GOPATH)/bin
 export CC="/usr/bin/gcc"
 export PATH="$PATH:$HOME/.composer/vendor/bin"
+export PATH="$HOME/.local/bin:$PATH"
+export PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1
+export CAVEMAN_DEFAULT_MODE=ultra
+export XDG_CONFIG_HOME="$HOME/.config"
