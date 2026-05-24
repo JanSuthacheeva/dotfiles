@@ -1,4 +1,5 @@
 vim.lsp.enable({
+  "clangd",
   "lua_ls",
   "intelephense",
   "pyright",
@@ -6,5 +7,6 @@ vim.lsp.enable({
   "gopls",
   "html",
   "ts_ls",
-  "sourcekit"
+  "sourcekit",
+  "rust_analyzer"
 })

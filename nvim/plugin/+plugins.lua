@@ -6,7 +6,8 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/vim-test/vim-test" },
-  { src = "https://github.com/nvim-lualine/lualine.nvim"},
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },
+  { src = "https://github.com/rust-lang/rust.vim" }
 })
 
 require "mason".setup()
@@ -35,15 +36,16 @@ require "nvim-treesitter".setup({
       })
     end
 })
--- require "nvim-treesitter.configs".setup({
---   highlight = {
---     enable = true,
---     additional_vim_regex_highlighting = false,
---   },
---   indent = {
---         enable = true,
---   },
--- })
+
+require "nvim-treesitter.configs".setup({
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+  indent = {
+        enable = true,
+  },
+})
 
 require("nordic").setup({
     on_palette = function(palette)

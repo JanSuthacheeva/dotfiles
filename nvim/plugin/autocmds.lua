@@ -19,10 +19,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
--- Somehow vim-test does not load by default
+-- vim.pack.add uses :packadd! during startup, which skips plugin/ files.
+-- Explicitly load them at VimEnter.
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     vim.cmd.packadd("vim-test")
+    vim.cmd.packadd("vim-fugitive")
   end,
 })
 
