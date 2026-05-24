@@ -5,6 +5,7 @@ setopt extendedglob nomatch
 unsetopt autocd beep notify
 bindkey -v
 
+source ~/.fonts/*.sh
 zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit promptinit

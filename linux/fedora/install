@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+set -e
+
+DOTFILES=$(cd $(dirname "${BASH_SOURCE[0]}")/../.. && pwd)
+
+ensure_installed() {
+    for pkg in "$@"; do
+      if dnf list installed "$pkg" &>/dev/null; then
+	  echo "$pkg already installed"
+   	else
+	  echo "Installing $pkg..."
+	  sudo dnf install -y "$pkg"
+	fi
+    done
+}
+
+mkdir -p $HOME/.config
+
+echo "Setup Fedora dotfiles..."
+echo "----------------------------" 
+echo " "
+echo "Installing copr for hyprland" 
+sudo dnf copr enable -y lionheartp/Hyprland
+echo "Installing packages..."
+echo " "
+echo "Installing Nerd Fonts..."
+echo " "
+if [ ! -d "~/projects/nerd-fonts" ]; then
+  cd ~/projects && git clone https://github.com/ryanoasis/nerd-fonts.git
+fi
+~/projects/nerd-fonts/install.sh
+echo " "
+ensure_installed hyprland hyprpaper hyprlock foot neovim tmux zsh lazygit waybar rofi-wayland
+# ensure_installed awesome-terminal-fonts otf-font-awesome ttf-font-awesome ttf-jetbrains-mono ttf-jetbrains-mono-nerd nerd-fonts
+echo " "
+echo "----------------------------"
+echo " "
+echo "Checking basic configurations..."
+
+if [ -f "$HOME/.dircolors" ]; then
+    echo ".dircolors already present"
+else
+    echo "Creating .dircolors..."
+    dircolors -p > "$HOME/.dircolors"
+fi
+
+if [ -f "$HOME/.zshenv" ]; then
+    echo ".zshenv already present"
+else
+    echo "Creating .zshenv..."
+    cp "$DOTFILES/linux/zsh/.zshenv" "$HOME/.zshenv"
+fi
+
+if [ -f "$HOME/.zshrc" ]; then
+    echo ".zshrc already present"
+else
+    echo "Creating .zshrc..."
+    cp "$DOTFILES/linux/zsh/.zshrc" "$HOME/.zshrc"
+fi
+
+echo " "
+echo "----------------------------"
+echo " "
+
+echo "Setting up Hyprland config..."
+rm -rf $HOME/.config/hypr
+ln -s $DOTFILES/linux/fedora/hypr $HOME/.config/hypr
+echo " "
+
+echo "Setting up Waybar config..."
+rm -rf $HOME/.config/waybar
+ln -s $DOTFILES/linux/fedora/waybar $HOME/.config/waybar
+echo " "
+
+echo "Setting up Rofi config..."
+rm -rf $HOME/.config/rofi
+ln -s $DOTFILES/linux/fedora/rofi $HOME/.config/rofi
+echo " "
+
+# Set up Ghostty config symlink
+echo "Setting up Ghostty config..."
+rm -rf $HOME/.config/foot
+ln -s $DOTFILES/linux/fedora/foot $HOME/.config/foot
+echo " "
+
+# Set up Neovim config symlink
+echo "Setting up Neovim config..."
+rm -rf $HOME/.config/nvim
+ln -s $DOTFILES/nvim $HOME/.config/nvim
+echo " "
+
+# Set up Lazygit config symlink
+echo "Setting up Lazygit config..."
+rm -rf $HOME/.config/lazygit
+ln -s $DOTFILES/lazygit $HOME/.config/lazygit
+echo " "
+
+# Set up tmux config
+echo "Setting up tmux config..."
+rm -f $HOME/.tmux.conf
+ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+echo " "
+
+# Set up scripts
+echo "Setting up scripts..."
+mkdir -p $HOME/bin
+rm -f $HOME/bin/t
+ln -s $DOTFILES/scripts/t $HOME/bin/t
+echo " "
+
