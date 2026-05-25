@@ -45,19 +45,6 @@ echo "Setting up AeroSpace config..."
 rm -rf $HOME/.aerospace.toml
 ln -s $DOTFILES/macos/aerospace/.aerospace.toml $HOME/.aerospace.toml
 
-# Check and install Sketchybar
-if ! command -v sketchybar &> /dev/null; then
-    echo "Sketchybar not found. Installing via Homebrew..."
-    brew install sketchybar
-else
-    echo "Sketchybar already installed"
-fi
-
-# Set up Sketchybar config symlink
-echo "Setting up Sketchybar config..."
-rm -rf $HOME/.config/sketchybar
-ln -s $DOTFILES/macos/sketchybar $HOME/.config/sketchybar
-
 # Set up app-icons symlink
 echo "Setting up app-icons..."
 rm -rf $HOME/.config/app-icons
