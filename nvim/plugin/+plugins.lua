@@ -47,33 +47,14 @@ require "nvim-treesitter.configs".setup({
   },
 })
 
-require("nordic").setup({
-    on_palette = function(palette)
-        palette.gray4 = palette.white0
-        palette.gray5 = palette.white3
-        palette.white0 = "#FFFFFF"
-    end,
-    italic_comments = true,
-    transparent = {
-        -- Enable transparent background.
-        bg = true,
-        -- Enable transparent background for floating windows.
-        float = true,
-    },
-})
-
-local palette = require('nordic.colors')
-local nordic = require'lualine.themes.nordic'
-
-nordic.normal.a.bg = palette.white0
-nordic.insert.a.fg = palette.white0
-nordic.insert.a.bg = "black"
-nordic.visual.a.bg = palette.white1
-nordic.command.a.bg = palette.white2
+-- aurum colorscheme (local plugin, see nvim/lua/aurum/ + nvim/colors/aurum.lua)
+-- Flavor: "slate" (default) | "onyx".
+vim.g.aurum_flavor = "slate"
+-- vim.g.aurum_transparent = true  -- uncomment for a transparent background
 
 require('lualine').setup({
     options = {
-        theme = nordic
+        theme = 'aurum'
     }
 })
 
@@ -87,4 +68,4 @@ vim.cmd([[
 ]])
 
 
-vim.cmd [[colorscheme nordic]]
+vim.cmd [[colorscheme aurum]]

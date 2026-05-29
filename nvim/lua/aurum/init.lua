@@ -1,0 +1,50 @@
+-- aurum colorscheme loader.
+-- Usage: `:colorscheme aurum`. Pick flavor with `vim.g.aurum_flavor`
+-- ("slate" default | "onyx"). Transparent bg via `vim.g.aurum_transparent`.
+
+local M = {}
+
+local function apply(groups)
+  local set = vim.api.nvim_set_hl
+  for name, spec in pairs(groups) do
+    set(0, name, spec)
+  end
+end
+
+function M.load(flavor)
+  flavor = flavor or vim.g.aurum_flavor or "slate"
+
+  local palettes = require("aurum.palette")
+  local p = palettes[flavor] or palettes.slate
+
+  if vim.g.colors_name then
+    vim.cmd("hi clear")
+  end
+  if vim.fn.exists("syntax_on") == 1 then
+    vim.cmd("syntax reset")
+  end
+
+  vim.o.termguicolors = true
+  vim.o.background = "dark"
+  vim.g.colors_name = "aurum"
+
+  p._transparent = vim.g.aurum_transparent == true or vim.g.aurum_transparent == 1
+
+  local modules = { "editor", "syntax", "treesitter", "lsp", "plugins" }
+  for _, m in ipairs(modules) do
+    apply(require("aurum.groups." .. m)(p))
+  end
+end
+
+-- Optional setup() for symmetry; only stores options.
+function M.setup(opts)
+  opts = opts or {}
+  if opts.flavor then
+    vim.g.aurum_flavor = opts.flavor
+  end
+  if opts.transparent ~= nil then
+    vim.g.aurum_transparent = opts.transparent
+  end
+end
+
+return M
