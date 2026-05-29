@@ -1,0 +1,30 @@
+# aurum-slate — slate base + gold accents
+
+background = 262b33
+foreground = d4d8e2
+
+cursor-color = d8ab2e
+cursor-text  = 262b33
+
+selection-background = 434b57
+selection-foreground = d4d8e2
+
+# normal
+palette = 0=#2e333c
+palette = 1=#cf6a48
+palette = 2=#a6b262
+palette = 3=#d8ab2e
+palette = 4=#849ec2
+palette = 5=#b894c2
+palette = 6=#88b0a2
+palette = 7=#d4d8e2
+
+# bright
+palette = 8=#938b78
+palette = 9=#db8568
+palette = 10=#b9c47e
+palette = 11=#ecd693
+palette = 12=#9bb0d0
+palette = 13=#c9a8d2
+palette = 14=#a0c2b5
+palette = 15=#e6eaf2

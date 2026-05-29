@@ -1,0 +1,30 @@
+# aurum-onyx — deep near-black base + gold accents
+
+background = 1d2127
+foreground = d4d8e2
+
+cursor-color = d4a72c
+cursor-text  = 1d2127
+
+selection-background = 353b45
+selection-foreground = d4d8e2
+
+# normal
+palette = 0=#23272e
+palette = 1=#c96342
+palette = 2=#9ba65a
+palette = 3=#d4a72c
+palette = 4=#7a93b8
+palette = 5=#b08cba
+palette = 6=#82a89b
+palette = 7=#d4d8e2
+
+# bright
+palette = 8=#565d68
+palette = 9=#d4795c
+palette = 10=#afb86d
+palette = 11=#e8d18a
+palette = 12=#93a9d6
+palette = 13=#c2a0cb
+palette = 14=#99bcae
+palette = 15=#e4e8f0

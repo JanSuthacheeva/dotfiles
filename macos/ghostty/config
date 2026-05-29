@@ -1,7 +1,7 @@
 font-family = "Liga SFMono Nerd Font"
 font-family = "Noto Color Emoji"
 font-size = 13
-theme = Nord
+theme = aurum-slate
 font-thicken = true
 adjust-cell-height = 50%
 
