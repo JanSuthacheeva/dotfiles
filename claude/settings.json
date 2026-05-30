@@ -3,6 +3,10 @@
     "CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS": "1",
     "CLAUDE_CODE_NEW_INIT": "true"
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }, 
   "permissions": {
     "allow": [
       "Bash(git status)",
@@ -30,30 +34,6 @@
     ]
   },
   "hooks": {
-    "Notification": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook notification",
-            "timeout": 2
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook permission_request",
-            "timeout": 2
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "matcher": "*",
@@ -62,39 +42,6 @@
             "type": "command",
             "command": "ccpetline-hook",
             "async": true
-          }
-        ]
-      },
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook post_tool_use",
-            "timeout": 2
-          }
-        ]
-      }
-    ],
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook pre_compact",
-            "timeout": 2
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook pre_tool_use",
-            "timeout": 2
           }
         ]
       }
@@ -108,15 +55,6 @@
             "async": true
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook session_end",
-            "timeout": 2
-          }
-        ]
       }
     ],
     "SessionStart": [
@@ -128,15 +66,6 @@
             "async": true
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook session_start",
-            "timeout": 2
-          }
-        ]
       }
     ],
     "Stop": [
@@ -145,41 +74,6 @@
           {
             "type": "command",
             "command": "claude-office-hook stop",
-            "timeout": 2
-          }
-        ]
-      }
-    ],
-    "SubagentStart": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook subagent_start",
-            "timeout": 2
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
-      {
-        "matcher": ".*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook subagent_stop",
-            "timeout": 2
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "claude-office-hook user_prompt_submit",
             "timeout": 2
           }
         ]

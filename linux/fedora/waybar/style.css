@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-  background: rgba(34, 36, 54, 0.6);
+  background: rgba(38, 43, 51, 0.6);
 }
 
 window#waybar.hidden {
@@ -26,7 +26,7 @@ window#waybar.hidden {
 #pulseaudio-slider,
 #network,
 #language {
-  color: #161320;
+  color: #262b33;
   margin-top: 6px;
   margin-bottom: 6px;
   padding-left: 10px;
@@ -57,29 +57,29 @@ window#waybar.hidden {
 /* Modules left */
 #custom-archicon {
   font-size: 20px;
-  color: #89B4FA;
-  background: #161320;
+  color: #ecd693;
+  background: #2e333c;
   padding-right: 17px;
 }
 
 #clock {
-  background: #ABE9B3;
+  background: #a6b262;
 }
 
 #cpu {
-  background: #96CDFB;
+  background: #849ec2;
 }
 
 #memory {
-  background: #DDB6F2;
+  background: #c9a8d2;
 }
 
 #disk {
-  background: #F5C2E7;
+  background: #b894c2;
 }
 
 #temperature {
-  background: #F8BD96;
+  background: #db8568;
 }
 
 /* Modules center */
@@ -91,7 +91,7 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-  color: #f9e2af;
+  color: #ecd693;
   background: transparent;
   padding: 4px 4px;
   transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
@@ -102,16 +102,16 @@ window#waybar.hidden {
 }
 
 #workspaces button.occupied {
-  color: #f9e2af;
+  color: #ecd693;
 }
 
 #workspaces button.active {
-  color: #f9e2af;
-  text-shadow: 0 0 4px #f9e2af;
+  color: #ecd693;
+  text-shadow: 0 0 4px #ecd693;
 }
 
 #workspaces button:hover {
-  color: #89B4FA;
+  color: #9bb0d0;
 }
 
 #workspaces button.active:hover {}
@@ -132,21 +132,21 @@ window#waybar.hidden {
 }
 
 #taskbar button.active {
-  background: rgba(34, 36, 54, 0.5);
+  background: rgba(67, 75, 87, 0.5);
 }
 
 #taskbar button:hover {
-  background: rgba(34, 36, 54, 0.5);
+  background: rgba(67, 75, 87, 0.5);
 }
 
 #idle_inhibitor {
-  background: #B5E8E0;
+  background: #a0c2b5;
   padding-right: 15px;
 }
 
 #pulseaudio-slider {
-  color: #1A1826;
-  background: #E8A2AF;
+  color: #262b33;
+  background: #db8568;
   min-width: 50px;
 }
 
@@ -154,24 +154,24 @@ window#waybar.hidden {
 
 #battery {
   min-width: 55px;
-  color: #1A1826;
-  background: #F5E0DC;
+  color: #262b33;
+  background: #b9c47e;
 }
 
 #network {
-  background: #CBA6F7;
+  background: #b894c2;
   padding-right: 13px;
 }
 
 #language {
-  background: #A6E3A1;
+  background: #a6b262;
   padding-right: 15px;
 }
 
 /* === Optional animation === */
 @keyframes blink {
   to {
-    background-color: #BF616A;
-    color: #B5E8E0;
+    background-color: #cf6a48;
+    color: #a0c2b5;
   }
 }
