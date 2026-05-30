@@ -13,3 +13,7 @@
 # Track skills directory (user-defined skills only)
 !skills/
 !skills/**
+
+# Track custom themes
+!themes/
+!themes/**
