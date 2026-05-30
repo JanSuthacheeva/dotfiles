@@ -13,6 +13,8 @@
 # Track skills directory (user-defined skills only)
 !skills/
 !skills/**
+# ...except clickup (kept on disk, not tracked)
+skills/clickup/
 
 # Track custom themes
 !themes/
