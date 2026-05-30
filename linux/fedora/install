@@ -109,3 +109,18 @@ rm -f $HOME/bin/t
 ln -s $DOTFILES/scripts/t $HOME/bin/t
 echo " "
 
+# Set up Claude Code config
+echo "Setting up Claude Code config..."
+mkdir -p $HOME/.claude
+rm -f $HOME/.claude/CLAUDE.md
+ln -s $DOTFILES/claude/CLAUDE.md $HOME/.claude/CLAUDE.md
+rm -f $HOME/.claude/settings.json
+ln -s $DOTFILES/claude/settings.json $HOME/.claude/settings.json
+rm -rf $HOME/.claude/themes
+ln -s $DOTFILES/claude/themes $HOME/.claude/themes
+rm -rf $HOME/.claude/commands
+ln -s $DOTFILES/claude/commands $HOME/.claude/commands
+rm -rf $HOME/.claude/skills
+ln -s $DOTFILES/claude/skills $HOME/.claude/skills
+echo " "
+
