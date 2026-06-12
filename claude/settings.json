@@ -1,76 +1,12 @@
 {
-  "agentPushNotifEnabled": true,
+  "env": {
+    "CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS": "1",
+    "CLAUDE_CODE_NEW_INIT": "true",
+    "ENABLE_CLAUDEAI_MCP_SERVERS": "false"
+  },
   "attribution": {
     "commit": "",
     "pr": ""
-  },
-  "effortLevel": "high",
-  "enabledPlugins": {
-    "buzzwoo-standard@buzzwoo-claude-plugins": true,
-    "buzzwoo-web-laravel@buzzwoo-claude-plugins": true,
-    "buzzwoo-web@buzzwoo-claude-plugins": true,
-    "caveman@caveman": true,
-    "code-review@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
-    "feature-dev@buzzwoo-claude-plugins": true,
-    "feature-dev@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "php-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "sentry@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
-    "telegram@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true
-  },
-  "env": {
-    "CLAUDE_CODE_DISABLE_GIT_INSTRUCTIONS": "1",
-    "CLAUDE_CODE_NEW_INIT": "true"
-  },
-  "extraKnownMarketplaces": {
-    "caveman": {
-      "source": {
-        "path": "/Users/jansuthacheeva/projects/caveman",
-        "source": "directory"
-      }
-    }
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "async": true,
-            "command": "ccpetline-hook",
-            "type": "command"
-          }
-        ],
-        "matcher": "*"
-      }
-    ],
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "async": true,
-            "command": "ccpetline-hook",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "async": true,
-            "command": "ccpetline-hook",
-            "type": "command"
-          }
-        ]
-      }
-    ]
   },
   "permissions": {
     "allow": [
@@ -98,6 +34,80 @@
       "Bash(composer info*)"
     ]
   },
+  "model": "claude-fable-5[1m]",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccpetline-hook",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccpetline-hook",
+            "async": true
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/summarize-session.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "ccpetline-hook",
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "ccpetline"
+  },
+  "enabledPlugins": {
+    "buzzwoo-standard@buzzwoo-claude-plugins": true,
+    "buzzwoo-web-laravel@buzzwoo-claude-plugins": true,
+    "buzzwoo-web@buzzwoo-claude-plugins": true,
+    "caveman@caveman": true,
+    "code-review@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "php-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/jansuthacheeva/projects/caveman"
+      }
+    }
+  },
   "spinnerVerbs": {
     "mode": "replace",
     "verbs": [
@@ -123,9 +133,8 @@
       "Club bug dead"
     ]
   },
-  "statusLine": {
-    "command": "ccpetline",
-    "type": "command"
-  },
-  "theme": "custom:aurum"
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "theme": "custom:aurum",
+  "agentPushNotifEnabled": true
 }
