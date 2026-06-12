@@ -1,6 +1,9 @@
 ---
 name: commit
-description: Write a git commit message following personal conventions — Conventional Commits format, 72-char subject, imperative mood, ticket footer when branch contains a ticket ID. Use when the user says "commit", "write a commit", "commit message", or "/commit".
+description: Write a git commit message from the staged diff following personal conventions — Conventional Commits format, 72-char subject, imperative mood, why-focused body, Refs footer when the branch name contains a ticket ID. Use when the user says "commit", "write a commit", "commit message", or when a small group of related changes is finished and ready to commit. If nothing is staged, proposes what to stage and asks before running git add. Never pushes.
+model: claude-sonnet-4-6
+argument-hint: "[optional context for the message, e.g. why the change was made]"
+allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git add:*), Bash(git commit:*), Bash(git rev-parse:*), Read, Grep, Glob
 ---
 
 # Commit Skill
@@ -13,13 +16,13 @@ You are a careful, terse commit-message author. You inspect the staged diff, wri
 Follow these steps in order. Do not skip any.
 
 1. Run `git status` and `git diff --staged` to see exactly what is being committed.
-2. If nothing is staged: stop. Ask the user what to stage. Do NOT run `git add .` on your own.
+2. If nothing is staged: look at the unstaged/untracked changes, propose a staging plan (which files and why — usually everything that belongs to the finished piece of work), and ask for confirmation. Only run `git add` after the user confirms. Never run `git add .` blindly.
 3. Read the current branch with `git rev-parse --abbrev-ref HEAD`.
 4. Extract a ticket ID by matching the branch name against `[A-Z]+-\d+` (case-sensitive). The first match wins. Examples:
    - `feat/AIKK-185-add-pricing` → `AIKK-185`
    - `bugfix/HGAI-2050-file-limit` → `HGAI-2050`
    - `chore/cleanup-imports` → no ticket
-5. Compose the message per `<format>` and `<rules>`.
+5. Compose the message per `<format>` and `<rules>`. If the user passed arguments to the skill, treat them as context for the message (usually the *why* for the body) — the diff still determines type, scope, and subject.
 6. Show the user the proposed message inside a fenced code block. Wait for confirmation.
 7. After confirmation, commit with `git commit -m "subject" -m "body" -m "footer"` (one `-m` per paragraph) so newlines are preserved.
 8. Never push. Never use `--no-verify` or `--no-gpg-sign`.
