@@ -8,21 +8,47 @@ Personal dotfiles repository for macOS (with Linux support). Configurations are 
 
 ## Installation
 
-Run the macOS install script:
+macOS:
 ```bash
 ./macos/install
 ```
+Installs Homebrew dependencies and creates symlinks for all configurations.
 
-This script installs Homebrew dependencies and creates symlinks for all configurations.
+Omarchy (Arch + Hyprland):
+```bash
+./linux/omarchy/install
+```
+Symlinks Neovim, Claude Code, and foot config; sets foot as the default terminal
+and wires theming into Omarchy (see Omarchy section below).
 
 ## Directory Structure
 
 - **macos/** - macOS-specific configs (aerospace, ghostty, sketchybar, zsh, p10k, borders)
-- **linux/** - Linux-specific configs (ghostty)
-- **nvim/** - Neovim configuration (shared via symlinks in macos/nvim and linux/nvim)
+- **linux/** - Linux-specific configs (arch, fedora, omarchy, zsh)
+- **nvim/** - Neovim configuration (shared across platforms via symlinks)
+- **claude/** - Claude Code config (settings, CLAUDE.md, commands, skills)
 - **karabiner/** - Keyboard remapper configuration
 - **tmux/** - Terminal multiplexer config
 - **scripts/** - Utility scripts (e.g., `t` for tmux session switching with fzf)
+
+## Omarchy (linux/omarchy/)
+
+Design: **system theming stays Omarchy-managed and dynamic** (colors change with
+`omarchy theme set`), while **Neovim, Claude Code, and foot get their behavior from
+this repo**. Per app: config = symlink from dotfiles; colors = Omarchy's generated
+`~/.config/omarchy/current/theme/`.
+
+- **foot** (`linux/omarchy/foot/foot.ini`) — local settings + `include` of the
+  Omarchy color file. Installer runs `omarchy default terminal foot`.
+- **Neovim** — `nvim/lua/aurum/omarchy.lua` reads the active theme's `colors.toml`
+  and builds a palette consumed by the existing `aurum` highlight groups, so colors
+  follow Omarchy. Falls back to the static slate palette when no Omarchy theme file
+  exists. `init.lua` picks `background` dark/light from bg luminance.
+- **Claude Code** — `linux/omarchy/omarchy/themed/claude.json.tpl` is rendered by
+  Omarchy's template engine into `current/theme/claude.json` on each theme switch;
+  `~/.claude/themes/omarchy.json` symlinks to it and settings use `custom:omarchy`.
+- **Hook** (`linux/omarchy/omarchy/hooks/theme-set`) — on theme change, live-reloads
+  running Neovim instances and sets the Claude theme `base` (dark/light) from luminance.
 
 ## Key Configurations
 

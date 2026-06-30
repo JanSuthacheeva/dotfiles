@@ -47,9 +47,11 @@ require "nvim-treesitter".setup({
 --   },
 -- })
 
--- aurum colorscheme (local plugin, see nvim/lua/aurum/ + nvim/colors/aurum.lua)
--- Flavor: "slate" (default) | "onyx".
-vim.g.aurum_flavor = "slate"
+-- aurum colorscheme (local plugin, see nvim/lua/aurum/ + nvim/colors/aurum.lua).
+-- Colors follow the active Omarchy theme (read from
+-- ~/.config/omarchy/current/theme/colors.toml). Falls back to the static slate
+-- palette when that file is absent; set vim.g.aurum_flavor = "onyx" to pick the
+-- other static flavor for the fallback.
 -- vim.g.aurum_transparent = true  -- uncomment for a transparent background
 
 require('lualine').setup({

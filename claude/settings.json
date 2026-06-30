@@ -12,7 +12,7 @@
     "allow": [
       "Bash(git status)",
       "Bash(make test)",
-      "Read(/Users/jansuthacheeva/projects/**)",
+      "Read(/home/jasu/Projects/**)",
       "Glob",
       "Grep",
       "Bash(git log*)",
@@ -104,7 +104,7 @@
     "caveman": {
       "source": {
         "source": "directory",
-        "path": "/Users/jansuthacheeva/projects/caveman"
+        "path": "/home/jasu/Projects/caveman"
       }
     }
   },
@@ -135,6 +135,6 @@
   },
   "effortLevel": "high",
   "tui": "fullscreen",
-  "theme": "custom:aurum",
+  "theme": "custom:omarchy",
   "agentPushNotifEnabled": true
 }

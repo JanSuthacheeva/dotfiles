@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Omarchy dotfiles installer.
+# System theming stays Omarchy-managed (colors follow `omarchy theme set`);
+# Neovim, Claude Code, and foot get their config from this repo. See
+# .claude/plans or the repo CLAUDE.md for the design.
+
+set -e
+
+DOTFILES=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
+TS=$(date +%s)
+
+# link <target> <source>: back up an existing real target, then symlink it.
+link() {
+  local target="$1" source="$2"
+  mkdir -p "$(dirname "$target")"
+  if [[ -L $target ]]; then
+    rm -f "$target"
+  elif [[ -e $target ]]; then
+    echo "  backing up $target -> $target.bak.$TS"
+    mv "$target" "$target.bak.$TS"
+  fi
+  ln -s "$source" "$target"
+  echo "  linked $target -> $source"
+}
+
+echo "Installing Omarchy dotfiles from $DOTFILES"
+
+# --- Neovim --------------------------------------------------------------------
+echo "Neovim..."
+link "$HOME/.config/nvim" "$DOTFILES/nvim"
+
+# --- foot (terminal) -----------------------------------------------------------
+echo "foot..."
+link "$HOME/.config/foot/foot.ini" "$DOTFILES/linux/omarchy/foot/foot.ini"
+if command -v omarchy-default-terminal >/dev/null; then
+  omarchy default terminal foot
+fi
+
+# --- Claude Code ---------------------------------------------------------------
+echo "Claude Code..."
+link "$HOME/.claude/settings.json" "$DOTFILES/claude/settings.json"
+link "$HOME/.claude/CLAUDE.md" "$DOTFILES/claude/CLAUDE.md"
+link "$HOME/.claude/commands" "$DOTFILES/claude/commands"
+link "$HOME/.claude/skills" "$DOTFILES/claude/skills"
+# Claude theme follows Omarchy: point at the generated theme file.
+link "$HOME/.claude/themes/omarchy.json" "$HOME/.config/omarchy/current/theme/claude.json"
+
+# --- Omarchy theme integration (templates + hook) ------------------------------
+echo "Omarchy theme integration..."
+link "$HOME/.config/omarchy/themed/claude.json.tpl" "$DOTFILES/linux/omarchy/omarchy/themed/claude.json.tpl"
+link "$HOME/.config/omarchy/hooks/theme-set" "$DOTFILES/linux/omarchy/omarchy/hooks/theme-set"
+
+# Materialize the generated theme files (renders claude.json, runs the hook).
+if command -v omarchy >/dev/null; then
+  current=$(omarchy theme current 2>/dev/null || true)
+  if [[ -n $current ]]; then
+    echo "  re-applying current theme ($current) to generate theme files"
+    omarchy theme set "$current" || true
+  fi
+fi
+
+echo
+echo "Done."
+echo "NOTE: claude/settings.json references external tools that are not installed"
+echo "      by this script: 'ccpetline'/'ccpetline-hook' (statusline + hooks) and"
+echo "      \$HOME/.claude/hooks/summarize-session.sh. Install them or remove those"
+echo "      entries, or those hooks will no-op/error."

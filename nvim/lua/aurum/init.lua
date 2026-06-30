@@ -11,11 +11,27 @@ local function apply(groups)
   end
 end
 
-function M.load(flavor)
-  flavor = flavor or vim.g.aurum_flavor or "slate"
+-- Rough perceived luminance of a "#rrggbb" string (0..1).
+local function luminance(hex)
+  hex = hex:gsub("#", "")
+  local r = tonumber(hex:sub(1, 2), 16) or 0
+  local g = tonumber(hex:sub(3, 4), 16) or 0
+  local b = tonumber(hex:sub(5, 6), 16) or 0
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255
+end
 
-  local palettes = require("aurum.palette")
-  local p = palettes[flavor] or palettes.slate
+function M.load(flavor)
+  -- Prefer the active Omarchy theme; fall back to the static slate palette.
+  local p
+  local ok, omarchy = pcall(require, "aurum.omarchy")
+  if ok then
+    p = omarchy()
+  end
+  if not p then
+    flavor = flavor or vim.g.aurum_flavor or "slate"
+    local palettes = require("aurum.palette")
+    p = palettes[flavor] or palettes.slate
+  end
 
   if vim.g.colors_name then
     vim.cmd("hi clear")
@@ -25,7 +41,7 @@ function M.load(flavor)
   end
 
   vim.o.termguicolors = true
-  vim.o.background = "dark"
+  vim.o.background = luminance(p.bg) < 0.5 and "dark" or "light"
   vim.g.colors_name = "aurum"
 
   p._transparent = vim.g.aurum_transparent == true or vim.g.aurum_transparent == 1
