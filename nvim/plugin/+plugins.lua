@@ -4,6 +4,7 @@ vim.pack.add({
   { src = "https://github.com/echasnovski/mini.pick" },
   { src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/vim-test/vim-test" },
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
@@ -11,6 +12,23 @@ vim.pack.add({
 })
 
 require "mason".setup()
+-- Auto-install LSP servers. Names are lspconfig server names (see plugin/lsp.lua).
+-- sourcekit is omitted: it ships with the Swift/Xcode toolchain, not Mason.
+-- automatic_enable is off because servers are enabled explicitly in plugin/lsp.lua.
+require "mason-lspconfig".setup({
+  ensure_installed = {
+    "clangd",
+    "lua_ls",
+    "intelephense",
+    "pyright",
+    "tailwindcss",
+    "gopls",
+    "html",
+    "ts_ls",
+    "rust_analyzer",
+  },
+  automatic_enable = false,
+})
 require "mini.pick".setup()
 require "nvim-treesitter".setup({
   ensure_installed = {"blade", "css", "go", "gomod", "html", "lua", "php", "python", "swift", "sql"},

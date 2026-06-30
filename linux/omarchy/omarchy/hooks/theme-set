@@ -2,6 +2,7 @@
 # Omarchy theme-set hook (dotfiles). Runs after `omarchy theme set <name>`.
 # 1. Live-reloads the colorscheme in running Neovim instances.
 # 2. Fixes the generated Claude theme's "base" (dark/light) from the bg luminance.
+# 3. Re-sources the generated palette into running tmux servers.
 
 THEME_DIR="$HOME/.config/omarchy/current/theme"
 
@@ -27,4 +28,11 @@ if [[ -f $colors && -f $claude_theme ]]; then
     base="dark"; [[ $lum -ge 500 ]] && base="light"
     sed -i -E "s/\"base\": *\"(dark|light)\"/\"base\": \"$base\"/" "$claude_theme"
   fi
+fi
+
+# --- 3. Reload tmux palette ----------------------------------------------------
+# Updating @thm_* in the running server re-renders the (lazily-evaluated)
+# catppuccin status segments without a full config reload.
+if command -v tmux >/dev/null && [[ -f $THEME_DIR/tmux.conf ]] && tmux info &>/dev/null; then
+  tmux source-file "$THEME_DIR/tmux.conf" 2>/dev/null || true
 fi

@@ -47,14 +47,21 @@ this repo**. Per app: config = symlink from dotfiles; colors = Omarchy's generat
 - **Claude Code** — `linux/omarchy/omarchy/themed/claude.json.tpl` is rendered by
   Omarchy's template engine into `current/theme/claude.json` on each theme switch;
   `~/.claude/themes/omarchy.json` symlinks to it and settings use `custom:omarchy`.
+- **tmux** — keybindings/behavior from `tmux/tmux.conf`; the catppuccin `@thm_*`
+  palette is sourced from `current/theme/tmux.conf` (rendered from
+  `linux/omarchy/omarchy/themed/tmux.conf.tpl`), so the status line follows Omarchy.
 - **Hook** (`linux/omarchy/omarchy/hooks/theme-set`) — on theme change, live-reloads
-  running Neovim instances and sets the Claude theme `base` (dark/light) from luminance.
+  running Neovim instances, sets the Claude theme `base` (dark/light) from luminance,
+  and re-sources the tmux palette into running servers.
 
 ## Key Configurations
 
 ### Neovim (nvim/)
 - Uses vim.pack native package manager (not lazy.nvim)
 - Plugin declarations in `plugin/+plugins.lua`
+- LSP enabled in `plugin/lsp.lua` (native `vim.lsp.enable`); servers auto-install via
+  `mason-lspconfig` `ensure_installed`. `sourcekit` is excluded (ships with the Swift
+  toolchain, not Mason); `gopls` needs a Go toolchain present to install.
 - LSP configured for: lua, PHP (intelephense), Python, TypeScript, Go, Swift, HTML, Tailwind
 - Leader key: Space
 - TreeSitter parsers: blade, css, go, html, lua, php, python, swift, sql

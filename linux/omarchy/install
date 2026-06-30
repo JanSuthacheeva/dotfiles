@@ -36,6 +36,11 @@ if command -v omarchy-default-terminal >/dev/null; then
   omarchy default terminal foot
 fi
 
+# --- tmux ----------------------------------------------------------------------
+echo "tmux..."
+link "$HOME/.config/tmux/tmux.conf" "$DOTFILES/tmux/tmux.conf"
+link "$HOME/.config/tmux/tmux.reset.conf" "$DOTFILES/tmux/tmux.reset.conf"
+
 # --- Claude Code ---------------------------------------------------------------
 echo "Claude Code..."
 link "$HOME/.claude/settings.json" "$DOTFILES/claude/settings.json"
@@ -48,6 +53,7 @@ link "$HOME/.claude/themes/omarchy.json" "$HOME/.config/omarchy/current/theme/cl
 # --- Omarchy theme integration (templates + hook) ------------------------------
 echo "Omarchy theme integration..."
 link "$HOME/.config/omarchy/themed/claude.json.tpl" "$DOTFILES/linux/omarchy/omarchy/themed/claude.json.tpl"
+link "$HOME/.config/omarchy/themed/tmux.conf.tpl" "$DOTFILES/linux/omarchy/omarchy/themed/tmux.conf.tpl"
 link "$HOME/.config/omarchy/hooks/theme-set" "$DOTFILES/linux/omarchy/omarchy/hooks/theme-set"
 
 # Materialize the generated theme files (renders claude.json, runs the hook).
