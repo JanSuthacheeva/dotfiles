@@ -37,18 +37,26 @@ zstyle ':completion:*' list-colors ''
 ##--------------------------------------------------------------------------
 ## Prompt (aurum): path + git branch/dirty + chevron
 ##--------------------------------------------------------------------------
-# Colors: steel #849ec2 (path), pastel gold #ecd693 (branch/ok chevron),
-# terracotta #cf6a48 (dirty markers, error chevron).
+# Colors use ANSI indices so the prompt follows the terminal palette. Path is
+# blue (4) and dirty markers red (1) in every theme. The accent (branch + ok
+# chevron) is theme-aware, read from the switcher's state file: gold on aurum,
+# blue on spectra — matching nvim/borders/tmux/claude. Read once at shell start;
+# new shells pick up a theme switch.
+case "$(cat ~/.config/theme-current 2>/dev/null)" in
+  spectra) _acc=4  ;; # spectra blue
+  *)       _acc=11 ;; # aurum bright gold
+esac
+
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' unstagedstr '%F{#cf6a48}*'
-zstyle ':vcs_info:git:*' stagedstr '%F{#cf6a48}+'
-zstyle ':vcs_info:git:*' formats ' %F{#ecd693}%b%u%c%f'
-zstyle ':vcs_info:git:*' actionformats ' %F{#ecd693}%b|%a%u%c%f'
+zstyle ':vcs_info:git:*' unstagedstr '%F{1}*'
+zstyle ':vcs_info:git:*' stagedstr '%F{1}+'
+zstyle ':vcs_info:git:*' formats " %F{${_acc}}%b%u%c%f"
+zstyle ':vcs_info:git:*' actionformats " %F{${_acc}}%b|%a%u%c%f"
 precmd() { vcs_info }
 setopt prompt_subst
-PROMPT='%F{#849ec2}%~%f${vcs_info_msg_0_} %(?.%F{#ecd693}.%F{#cf6a48})❯%f '
+PROMPT='%F{4}%~%f${vcs_info_msg_0_} %(?.%F{'${_acc}'}.%F{1})❯%f '
 
 ##--------------------------------------------------------------------------
 ## nvm
