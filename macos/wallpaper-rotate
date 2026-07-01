@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Rotate the desktop wallpaper among the spectra images — but only while the
+# spectra theme is active. Invoked hourly by a launchd agent and once by
+# macos/theme on switching to spectra. No-op on any other theme.
+set -euo pipefail
+
+DOTFILES=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+STATE="$HOME/.config/theme-current"
+DIR="$DOTFILES/wallpapers/mac/spectra"
+
+# Only rotate while on spectra.
+[ "$(cat "$STATE" 2>/dev/null)" = "spectra" ] || exit 0
+
+shopt -s nullglob
+images=("$DIR"/*.png "$DIR"/*.jpg "$DIR"/*.jpeg)
+shopt -u nullglob
+[ ${#images[@]} -gt 0 ] || exit 0
+
+# Pick a random image, avoiding the current one when there's a choice.
+current=$(osascript -e 'tell application "System Events" to get picture of current desktop' 2>/dev/null || true)
+pick="${images[$((RANDOM % ${#images[@]}))]}"
+if [ ${#images[@]} -gt 1 ]; then
+  while [ "$pick" = "$current" ]; do
+    pick="${images[$((RANDOM % ${#images[@]}))]}"
+  done
+fi
+
+osascript -e "tell application \"System Events\" to set picture of every desktop to \"$pick\"" >/dev/null 2>&1 || true

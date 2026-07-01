@@ -134,4 +134,30 @@ current=$(cat "$HOME/.config/theme-current" 2>/dev/null || echo aurum)
 case "$current" in aurum|spectra) ;; *) current=aurum ;; esac
 "$DOTFILES/macos/theme" "$current"
 
+# Spectra wallpaper rotation: a launchd agent runs macos/wallpaper-rotate hourly
+# (the script no-ops unless the spectra theme is active). The plist is generated
+# here with the absolute script path, so it stays out of the repo.
+echo "Setting up wallpaper rotation agent..."
+chmod +x "$DOTFILES/macos/wallpaper-rotate"
+PLIST="$HOME/Library/LaunchAgents/com.jasu.spectra-wallpaper.plist"
+mkdir -p "$HOME/Library/LaunchAgents"
+cat > "$PLIST" <<PLIST_EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key><string>com.jasu.spectra-wallpaper</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>$DOTFILES/macos/wallpaper-rotate</string>
+    </array>
+    <key>StartInterval</key><integer>3600</integer>
+    <key>RunAtLoad</key><true/>
+</dict>
+</plist>
+PLIST_EOF
+launchctl unload "$PLIST" 2>/dev/null || true
+launchctl load "$PLIST" 2>/dev/null || true
+
 echo "macOS dotfiles installation complete!"

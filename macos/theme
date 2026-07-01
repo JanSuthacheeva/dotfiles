@@ -18,13 +18,11 @@ DOTFILES=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 GHOSTTY_DIR="$DOTFILES/macos/ghostty"
 STATE="$HOME/.config/theme-current"
 
-# nvim flavor + wallpaper per theme.
+# nvim flavor per theme.
 if [ "$name" = "spectra" ]; then
   flavor="spectra"
-  wallpaper="$DOTFILES/wallpapers/mac/c2.png"
 else
   flavor="slate"
-  wallpaper="$DOTFILES/wallpapers/cpu-1.png"
 fi
 
 # 1. State ---------------------------------------------------------------------
@@ -79,8 +77,12 @@ if [ -f "$DOTFILES/claude/themes/$name.json" ]; then
 fi
 
 # 5. wallpaper -----------------------------------------------------------------
-if [ -f "$wallpaper" ]; then
-  osascript -e "tell application \"System Events\" to set picture of every desktop to \"$wallpaper\"" >/dev/null 2>&1 || true
+# spectra rotates among wallpapers/mac/spectra (also hourly via launchd); aurum
+# uses its single wallpaper.
+if [ "$name" = "spectra" ]; then
+  "$DOTFILES/macos/wallpaper-rotate" || true
+else
+  osascript -e "tell application \"System Events\" to set picture of every desktop to \"$DOTFILES/wallpapers/cpu-1.png\"" >/dev/null 2>&1 || true
 fi
 
 # 6. ghostty reload (best-effort AppleScript menu click) -----------------------
