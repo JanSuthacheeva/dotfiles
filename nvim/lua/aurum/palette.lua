@@ -69,4 +69,36 @@ M.onyx = {
   none   = "NONE",
 }
 
+-- Omarchy Spectra palette, mapped onto aurum's keys. No native gold; the accent
+-- role is blue, warnings use yellow. Source: abhijeet-swami/omarchy-spectra-theme.
+M.spectra = {
+  bg       = "#1a1b1e",
+  bg_dark  = "#151619",
+  bg_float = "#121316",
+  bg2      = "#2b2d31",
+  bg3      = "#3a3d42",
+  sel      = "#434650",
+  fg       = "#eaeaef",
+  fg_dim   = "#b8bcc4",
+  muted    = "#7f8288",
+  comment  = "#6b6e74",
+  line_nr  = "#4a4d53",
+  gold      = "#f7c553", -- "gold" role = spectra yellow
+  gold_pale = "#ffd86f",
+  gold_dark = "#a9863a",
+  red   = "#ef5d67",
+  green = "#8edb73",
+  teal  = "#7dd8d3", -- cyan
+  blue  = "#7ca5ff",
+  mauve = "#e29ef3", -- magenta
+  error = "#ef5d67",
+  warn  = "#f7c553",
+  info  = "#7dd8d3",
+  hint  = "#7ca5ff",
+  add    = "#8edb73",
+  change = "#f7c553",
+  delete = "#ef5d67",
+  none   = "NONE",
+}
+
 return M

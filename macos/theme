@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# Switch the macOS theme across ghostty, nvim, borders and the wallpaper.
+# Usage: macos/theme <aurum|spectra>   (or `make theme-aurum` / `make theme-spectra`)
+#
+# State of truth is ~/.config/theme-current; each app reads it at startup. This
+# script writes it, then live-reloads running apps. Reloads are best-effort: a
+# missing app never aborts the switch. ghostty reload is the one non-guaranteed
+# step (AppleScript menu-click, needs Accessibility); fall back to shift+ctrl+r.
+set -euo pipefail
+
+name="${1:-}"
+case "$name" in
+  aurum|spectra) ;;
+  *) echo "usage: $(basename "$0") <aurum|spectra>" >&2; exit 1 ;;
+esac
+
+DOTFILES=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+GHOSTTY_DIR="$DOTFILES/macos/ghostty"
+STATE="$HOME/.config/theme-current"
+
+# nvim flavor + wallpaper per theme.
+if [ "$name" = "spectra" ]; then
+  flavor="spectra"
+  wallpaper="$DOTFILES/wallpapers/mac/c2.png"
+else
+  flavor="slate"
+  wallpaper="$DOTFILES/wallpapers/cpu-1.png"
+fi
+
+# 1. State ---------------------------------------------------------------------
+mkdir -p "$(dirname "$STATE")"
+echo "$name" > "$STATE"
+
+# 2. ghostty: copy the chosen profile into the (gitignored) included file -------
+cp "$GHOSTTY_DIR/profiles/$name.conf" "$GHOSTTY_DIR/theme.conf"
+
+# 3. nvim: clear cached modules and re-load in every running instance -----------
+tmp="${TMPDIR:-/tmp}"; tmp="${tmp%/}"
+reload_lua=$(mktemp "$tmp/aurum-reload.XXXXXX")
+cat > "$reload_lua" <<LUA
+for _, m in ipairs({ "aurum", "aurum.palette", "lualine.themes.aurum" }) do
+  package.loaded[m] = nil
+end
+vim.g.aurum_flavor = "$flavor"
+require("aurum").load("$flavor")
+pcall(function()
+  require("lualine").setup({ options = { theme = "aurum" } })
+end)
+LUA
+if command -v nvim >/dev/null 2>&1; then
+  # Sockets live at $TMPDIR/nvim.<user>/<rand>/nvim.<pid>.0 — depth varies, so find them.
+  while IFS= read -r sock; do
+    [ -S "$sock" ] || continue
+    nvim --server "$sock" --remote-expr "execute('luafile $reload_lua')" >/dev/null 2>&1 || true
+  done < <(find "$tmp"/nvim.* -type s 2>/dev/null)
+fi
+rm -f "$reload_lua"
+
+# 4. borders: re-exec so it re-reads the state file ----------------------------
+if [ -x "$HOME/.config/borders/bordersrc" ]; then
+  "$HOME/.config/borders/bordersrc" >/dev/null 2>&1 || true
+fi
+
+# 4b. tmux: write the palette, live-source it into running servers --------------
+# (~/.config/tmux is a symlink into the repo, so theme.conf is gitignored.)
+if [ -f "$DOTFILES/tmux/themes/$name.conf" ]; then
+  cp "$DOTFILES/tmux/themes/$name.conf" "$HOME/.config/tmux/theme.conf"
+  if command -v tmux >/dev/null 2>&1 && tmux info >/dev/null 2>&1; then
+    tmux source-file "$HOME/.config/tmux/theme.conf" >/dev/null 2>&1 || true
+    tmux refresh-client -S >/dev/null 2>&1 || true
+  fi
+fi
+
+# 4c. claude: swap the active custom theme file. settings.json keeps
+# "theme": "custom:omarchy" on both platforms; here we just fill omarchy.json.
+# Takes effect in new Claude Code sessions (no live reload).
+if [ -f "$DOTFILES/claude/themes/$name.json" ]; then
+  cp "$DOTFILES/claude/themes/$name.json" "$HOME/.claude/themes/omarchy.json"
+fi
+
+# 5. wallpaper -----------------------------------------------------------------
+if [ -f "$wallpaper" ]; then
+  osascript -e "tell application \"System Events\" to set picture of every desktop to \"$wallpaper\"" >/dev/null 2>&1 || true
+fi
+
+# 6. ghostty reload (best-effort AppleScript menu click) -----------------------
+osascript >/dev/null 2>&1 <<'OSA' || true
+tell application "System Events"
+  set procs to (name of processes) as list
+  if procs contains "ghostty" then
+    tell process "ghostty"
+      try
+        click menu item "Reload Configuration" of menu 1 of menu bar item "Ghostty" of menu bar 1
+      end try
+    end tell
+  end if
+end tell
+OSA
+
+echo "theme: $name"

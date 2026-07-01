@@ -1,10 +1,18 @@
 #!/bin/bash
 
+# Active border color follows the current theme; macos/theme writes the state
+# file and re-execs this script. Defaults to aurum when unset.
+theme=$(cat "$HOME/.config/theme-current" 2>/dev/null)
+case "$theme" in
+	spectra) active=0xff7ca5ff ;; # spectra blue
+	*)       active=0xfff0e6b8 ;; # aurum gold
+esac
+
 options=(
 	style=round
 	width=10.0
 	hidpi=off
-  active_color=0xfff0e6b8
+	active_color=$active
 	inactive_color=0x002c2e34
 	background_color=0x002c2e34
 )

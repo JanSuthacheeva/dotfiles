@@ -72,6 +72,22 @@ require "nvim-treesitter".setup({
 -- other static flavor for the fallback.
 -- vim.g.aurum_transparent = true  -- uncomment for a transparent background
 
+-- macOS theme switcher: pick the static flavor from ~/.config/theme-current
+-- (aurum -> slate, spectra -> spectra) so lualine and the colorscheme agree.
+-- No-op when the file is absent (e.g. Linux/Omarchy drives colors instead).
+do
+  local f = io.open(vim.fn.expand("~/.config/theme-current"), "r")
+  if f then
+    local name = (f:read("l") or ""):gsub("%s+", "")
+    f:close()
+    if name == "spectra" then
+      vim.g.aurum_flavor = "spectra"
+    elseif name == "aurum" then
+      vim.g.aurum_flavor = "slate"
+    end
+  end
+end
+
 require('lualine').setup({
     options = {
         theme = 'aurum'

@@ -1,0 +1,24 @@
+{
+  "name": "Spectra",
+  "base": "dark",
+  "overrides": {
+    "claude": "#7ca5ff",
+    "text": "#eaeaef",
+    "inverseText": "#1a1b1e",
+    "subtle": "#505258",
+    "inactive": "#505258",
+    "suggestion": "#505258",
+    "permission": "#7dd8d3",
+    "remember": "#e29ef3",
+    "success": "#8edb73",
+    "error": "#ef5d67",
+    "warning": "#f7c553",
+    "merged": "#e29ef3",
+    "promptBorder": "#505258",
+    "planMode": "#7dd8d3",
+    "autoAccept": "#8edb73",
+    "bashBorder": "#7ca5ff",
+    "ide": "#7ca5ff",
+    "fastMode": "#7ca5ff"
+  }
+}

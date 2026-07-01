@@ -19,3 +19,5 @@ skills/clickup/
 # Track custom themes
 !themes/
 !themes/**
+# ...except the generated active-theme copy (written by macos/theme)
+themes/omarchy.json

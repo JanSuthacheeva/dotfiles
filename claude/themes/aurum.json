@@ -1,0 +1,24 @@
+{
+  "name": "Aurum Slate",
+  "base": "dark",
+  "overrides": {
+    "claude": "#ecd693",
+    "text": "#d4d8e2",
+    "inverseText": "#262b33",
+    "subtle": "#938b78",
+    "inactive": "#938b78",
+    "suggestion": "#938b78",
+    "permission": "#88b0a2",
+    "remember": "#b894c2",
+    "success": "#a6b262",
+    "error": "#cf6a48",
+    "warning": "#d8ab2e",
+    "merged": "#b894c2",
+    "promptBorder": "#938b78",
+    "planMode": "#88b0a2",
+    "autoAccept": "#a6b262",
+    "bashBorder": "#849ec2",
+    "ide": "#849ec2",
+    "fastMode": "#ecd693"
+  }
+}

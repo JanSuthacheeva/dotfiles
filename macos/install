@@ -73,10 +73,38 @@ echo "Setting up Lazygit config..."
 rm -rf $HOME/.config/lazygit
 ln -s $DOTFILES/lazygit $HOME/.config/lazygit
 
-# Set up tmux config
+# Check and install tmux
+if ! command -v tmux &> /dev/null; then
+    echo "tmux not found. Installing via Homebrew..."
+    brew install tmux
+else
+    echo "tmux already installed"
+fi
+
+# Set up tmux config. Symlink the whole dir so ~/.config/tmux/{tmux.conf,
+# tmux.reset.conf,plugins} all resolve — tmux.conf references those paths.
 echo "Setting up tmux config..."
 rm -f $HOME/.tmux.conf
-ln -s $DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
+mkdir -p $HOME/.config
+rm -rf $HOME/.config/tmux
+ln -s $DOTFILES/tmux $HOME/.config/tmux
+
+# Bootstrap tpm and install declared plugins (catppuccin/sensible/battery).
+# Plugins live at ~/.config/tmux/plugins -> repo/tmux/plugins (gitignored).
+# Best-effort: needs network + tmux; never aborts the install.
+if [ ! -d "$HOME/.config/tmux/plugins/tpm" ]; then
+    echo "Installing tpm..."
+    git clone --depth 1 https://github.com/tmux-plugins/tpm \
+        "$HOME/.config/tmux/plugins/tpm" || echo "  tpm clone failed (offline?); run tpm's install_plugins later"
+fi
+if [ -x "$HOME/.config/tmux/plugins/tpm/bin/install_plugins" ]; then
+    echo "Installing tmux plugins..."
+    # A throwaway server lets tpm read the @plugin declarations from the config.
+    tmux new-session -d -s __bootstrap__ 2>/dev/null || true
+    TMUX_PLUGIN_MANAGER_PATH="$HOME/.config/tmux/plugins/" \
+        "$HOME/.config/tmux/plugins/tpm/bin/install_plugins" || true
+    tmux kill-session -t __bootstrap__ 2>/dev/null || true
+fi
 
 # Set up scripts
 echo "Setting up scripts..."
@@ -97,5 +125,13 @@ rm -rf $HOME/.claude/commands
 ln -s $DOTFILES/claude/commands $HOME/.claude/commands
 rm -rf $HOME/.claude/skills
 ln -s $DOTFILES/claude/skills $HOME/.claude/skills
+
+# Seed theme state and generate ghostty's included theme file (see macos/theme).
+# Respects an existing choice; defaults to aurum. Switch later with
+# `make theme-aurum` / `make theme-spectra`.
+echo "Seeding theme..."
+current=$(cat "$HOME/.config/theme-current" 2>/dev/null || echo aurum)
+case "$current" in aurum|spectra) ;; *) current=aurum ;; esac
+"$DOTFILES/macos/theme" "$current"
 
 echo "macOS dotfiles installation complete!"
