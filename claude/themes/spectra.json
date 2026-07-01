@@ -19,6 +19,12 @@
     "autoAccept": "#8edb73",
     "bashBorder": "#7ca5ff",
     "ide": "#7ca5ff",
-    "fastMode": "#7ca5ff"
+    "fastMode": "#7ca5ff",
+    "diffAdded": "ansi:green",
+    "diffRemoved": "ansi:red",
+    "diffAddedDimmed": "ansi256(22)",
+    "diffRemovedDimmed": "ansi256(52)",
+    "diffAddedWord": "ansi:greenBright",
+    "diffRemovedWord": "ansi:redBright"
   }
 }
