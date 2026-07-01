@@ -1,6 +1,6 @@
 {
   "name": "Aurum Slate",
-  "base": "dark",
+  "base": "dark-ansi",
   "overrides": {
     "claude": "#ecd693",
     "text": "#d4d8e2",
@@ -19,12 +19,6 @@
     "autoAccept": "#a6b262",
     "bashBorder": "#849ec2",
     "ide": "#849ec2",
-    "fastMode": "#ecd693",
-    "diffAdded": "ansi:green",
-    "diffRemoved": "ansi:red",
-    "diffAddedDimmed": "ansi256(22)",
-    "diffRemovedDimmed": "ansi256(52)",
-    "diffAddedWord": "ansi:greenBright",
-    "diffRemovedWord": "ansi:redBright"
+    "fastMode": "#ecd693"
   }
 }
