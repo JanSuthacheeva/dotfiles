@@ -3,12 +3,12 @@
 local flavor = vim.g.aurum_flavor or "slate"
 local c = require("aurum.palette")[flavor] or require("aurum.palette").slate
 
-local b = { fg = c.gold, bg = c.bg3 }
+local b = { fg = c.accent, bg = c.bg3 }
 local cc = { fg = c.fg, bg = c.bg2 }
 
 return {
   normal = {
-    a = { fg = c.bg, bg = c.gold, gui = "bold" },
+    a = { fg = c.bg, bg = c.accent, gui = "bold" },
     b = b,
     c = cc,
   },

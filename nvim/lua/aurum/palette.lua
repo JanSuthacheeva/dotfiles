@@ -21,6 +21,7 @@ M.slate = {
   gold      = "#ecd693",
   gold_pale = "#f3e4b0",
   gold_dark = "#a17e1f",
+  accent    = "#ecd693", -- statusline/mode accent (gold for aurum)
   -- accents
   red   = "#cf6a48", -- terracotta
   green = "#a6b262", -- olive
@@ -54,6 +55,7 @@ M.onyx = {
   gold      = "#e8d18a",
   gold_pale = "#f0e0ad",
   gold_dark = "#a17e1f",
+  accent    = "#e8d18a", -- statusline/mode accent (gold for aurum)
   red   = "#c96342",
   green = "#9ba65a",
   teal  = "#82a89b",
@@ -86,6 +88,7 @@ M.spectra = {
   gold      = "#f7c553", -- "gold" role = spectra yellow
   gold_pale = "#ffd86f",
   gold_dark = "#a9863a",
+  accent    = "#7ca5ff", -- statusline/mode accent = spectra blue
   red   = "#ef5d67",
   green = "#8edb73",
   teal  = "#7dd8d3", -- cyan
