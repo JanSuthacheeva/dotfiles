@@ -8,6 +8,13 @@ theme-aurum:
 theme-spectra:
 	./macos/theme spectra
 
-# Manually rotate the spectra wallpaper now (no-op unless on spectra).
+# Set the spectra wallpaper now (no-op unless on spectra).
+#   make wallpaper       -> random image
+#   make wallpaper rwb   -> that specific image by basename
 wallpaper:
-	./macos/wallpaper-rotate
+	./macos/wallpaper-rotate $(filter-out wallpaper,$(MAKECMDGOALS))
+
+# Swallow the image-name argument so `make wallpaper rwb` doesn't treat `rwb`
+# as an unknown target.
+%:
+	@:

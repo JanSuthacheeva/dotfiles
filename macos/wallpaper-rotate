@@ -1,28 +1,47 @@
 #!/usr/bin/env bash
-# Rotate the desktop wallpaper among the spectra images — but only while the
-# spectra theme is active. Invoked hourly by a launchd agent and once by
-# macos/theme on switching to spectra. No-op on any other theme.
+# Set the desktop wallpaper from the spectra image folder — only while the
+# spectra theme is active. With no argument, picks a random image (avoiding the
+# current one); with an argument, sets that specific image by basename, e.g.
+#   macos/wallpaper-rotate rwb   -> wallpapers/mac/spectra/rwb.<ext>
+# Invoked hourly by a launchd agent (no arg) and by macos/theme / `make wallpaper`.
 set -euo pipefail
 
 DOTFILES=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 STATE="$HOME/.config/theme-current"
 DIR="$DOTFILES/wallpapers/mac/spectra"
+name_arg="${1:-}"
 
-# Only rotate while on spectra.
-[ "$(cat "$STATE" 2>/dev/null)" = "spectra" ] || exit 0
+# Rotation is spectra-only. Silent for launchd (no TTY); noisy when run by hand.
+if [ "$(cat "$STATE" 2>/dev/null)" != "spectra" ]; then
+  [ -t 1 ] && echo "wallpaper rotation is spectra-only; switch to spectra first"
+  exit 0
+fi
 
 shopt -s nullglob
 images=("$DIR"/*.png "$DIR"/*.jpg "$DIR"/*.jpeg)
 shopt -u nullglob
 [ ${#images[@]} -gt 0 ] || exit 0
 
-# Pick a random image, avoiding the current one when there's a choice.
-current=$(osascript -e 'tell application "System Events" to get picture of current desktop' 2>/dev/null || true)
-pick="${images[$((RANDOM % ${#images[@]}))]}"
-if [ ${#images[@]} -gt 1 ]; then
-  while [ "$pick" = "$current" ]; do
-    pick="${images[$((RANDOM % ${#images[@]}))]}"
-  done
+if [ -n "$name_arg" ]; then
+  # Explicit image by basename (any extension).
+  shopt -s nullglob
+  matches=("$DIR/$name_arg".*)
+  shopt -u nullglob
+  if [ ${#matches[@]} -eq 0 ]; then
+    echo "no wallpaper named '$name_arg' in $DIR" >&2
+    printf '  available:'; for f in "${images[@]}"; do printf ' %s' "$(basename "${f%.*}")"; done; echo
+    exit 1
+  fi
+  pick="${matches[0]}"
+else
+  # Random, avoiding the current one when there's a choice.
+  current=$(osascript -e 'tell application "System Events" to get picture of current desktop' 2>/dev/null || true)
+  pick="${images[$((RANDOM % ${#images[@]}))]}"
+  if [ ${#images[@]} -gt 1 ]; then
+    while [ "$pick" = "$current" ]; do
+      pick="${images[$((RANDOM % ${#images[@]}))]}"
+    done
+  fi
 fi
 
 osascript -e "tell application \"System Events\" to set picture of every desktop to \"$pick\"" >/dev/null 2>&1 || true
