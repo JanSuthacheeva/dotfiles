@@ -101,6 +101,9 @@ automatically-unhide-macos-hidden-apps = false
     cmd-shift-s = 'exec-and-forget open -a Slack'
     cmd-shift-o = 'exec-and-forget open -a Obsidian'
 
+    # Floating system/power menu (rofi-style, via macos/system-menu + choose)
+    cmd-alt-space = 'exec-and-forget $HOME/bin/system-menu'
+
     # Web apps
     cmd-shift-a = 'exec-and-forget open "https://chatgpt.com"'
     cmd-shift-c = 'exec-and-forget open "https://app.clickup.com"'

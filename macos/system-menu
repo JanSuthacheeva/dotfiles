@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Floating system/power menu via `choose` (rofi-style, keyboard-driven).
+# Bound to a hotkey in AeroSpace. Colors follow the active theme
+# (~/.config/theme-current), mirroring bordersrc: choose only exposes the
+# match-highlight color (-c) and the selected-row background (-b); the window
+# uses the macOS dark appearance.
+set -u
+
+theme=$(cat "$HOME/.config/theme-current" 2>/dev/null || echo aurum)
+case "$theme" in
+	spectra) highlight=7ca5ff; selbg=434650 ;; # spectra blue
+	*)       highlight=ecd693; selbg=434b57 ;; # aurum gold
+esac
+
+font="Liga SFMono Nerd Font"
+
+# Menu labels (nerd-font glyphs) paired index-for-index with the actions below.
+labels=(
+	"  Lock"
+	"  Sleep"
+	"  Log Out"
+	"  Restart"
+	"  Shut Down"
+)
+actions=(lock sleep logout restart shutdown)
+
+# `choose -i` prints the 0-based index of the pick, or nothing on cancel.
+choice=$(printf '%s\n' "${labels[@]}" \
+	| choose -i -n "${#labels[@]}" -w 24 -s 20 -f "$font" -c "$highlight" -b "$selbg") \
+	|| choice=""
+
+# Guard: empty (cancelled) or -1 (no match) → do nothing.
+[ -z "$choice" ] && exit 0
+[ "$choice" -ge 0 ] 2>/dev/null || exit 0
+
+case "${actions[$choice]}" in
+	lock)     osascript -e 'tell application "System Events" to keystroke "q" using {control down, command down}' ;;
+	sleep)    pmset sleepnow ;;
+	logout)   osascript -e 'tell application "System Events" to log out' ;;
+	restart)  osascript -e 'tell application "System Events" to restart' ;;
+	shutdown) osascript -e 'tell application "System Events" to shut down' ;;
+esac

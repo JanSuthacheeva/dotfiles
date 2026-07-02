@@ -112,6 +112,17 @@ mkdir -p $HOME/bin
 rm -f $HOME/bin/t
 ln -s $DOTFILES/scripts/t $HOME/bin/t
 
+# choose-gui powers the AeroSpace system/power menu (see macos/system-menu).
+if ! command -v choose &> /dev/null; then
+    echo "choose-gui not found. Installing via Homebrew..."
+    brew install choose-gui
+else
+    echo "choose-gui already installed"
+fi
+echo "Setting up system-menu..."
+rm -f $HOME/bin/system-menu
+ln -s $DOTFILES/macos/system-menu $HOME/bin/system-menu
+
 # Set up Claude Code config
 echo "Setting up Claude Code config..."
 mkdir -p $HOME/.claude
@@ -157,7 +168,10 @@ cat > "$PLIST" <<PLIST_EOF
 </dict>
 </plist>
 PLIST_EOF
-launchctl unload "$PLIST" 2>/dev/null || true
-launchctl load "$PLIST" 2>/dev/null || true
+# Use the modern bootout/bootstrap API — legacy `launchctl load` does not
+# reliably arm StartInterval on current macOS.
+uid=$(id -u)
+launchctl bootout "gui/$uid/com.jasu.spectra-wallpaper" 2>/dev/null || true
+launchctl bootstrap "gui/$uid" "$PLIST" 2>/dev/null || true
 
 echo "macOS dotfiles installation complete!"
