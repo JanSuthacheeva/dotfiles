@@ -70,12 +70,13 @@ this repo**. Per app: config = symlink from dotfiles; colors = Omarchy's generat
 - Lua-based modular configuration
 - Entry point: `init.lua`, bootstrap: `sketchybarrc`
 - Items in `items/` directory, widgets in `items/widgets/`
-- Integrates with AeroSpace via workspace change events
+- Currently dormant: not started by AeroSpace and no login agent. The macOS
+  menu bar is used instead. Config is retained for later re-enabling.
 
 ### AeroSpace (macos/aerospace/)
 - Tiling window manager config in TOML
-- Starts sketchybar and borders on launch
-- Triggers sketchybar updates on workspace changes
+- Starts borders on launch via `~/.config/borders/bordersrc` (theme-aware)
+- `cmd-alt-space` opens the system/power menu (`macos/system-menu`)
 
 ### Zsh (macos/zsh/)
 - Oh-my-zsh with Powerlevel10k theme
@@ -83,6 +84,5 @@ this repo**. Per app: config = symlink from dotfiles; colors = Omarchy's generat
 
 ## Integration Points
 
-- AeroSpace startup → launches sketchybar and borders
-- Workspace changes → trigger sketchybar bar updates via exec-on-workspace-change
+- AeroSpace startup → launches borders (via `bordersrc`, theme-aware)
 - Tmux session script (`scripts/t`) → searches ~/projects for fzf-based session switching
